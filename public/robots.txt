@@ -1,0 +1,6 @@
+# Search engines and AI search assistants are welcome.
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://www.databytesolution.com/sitemap.xml

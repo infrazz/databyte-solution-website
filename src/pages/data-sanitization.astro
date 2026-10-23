@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AsideNav from '../components/AsideNav.astro';
+import { IMG } from '../images';
+const path = '/data-sanitization';
+const crumbs = [{ name: 'Data Sanitization', href: path }];
+---
+<Base
+  title="Data Sanitization & Data Destruction Services"
+  description="NIST 800-88 Rev 1 compliant data sanitization in Singapore: onsite and offsite degaussing, crushing, shredding and secure erasure with NSA/CSS-evaluated equipment."
+  path={path}
+  crumbs={crumbs}
+  image={IMG.crushedHdd.src}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Data destruction services"
+    title="Data Sanitization"
+    lead="Also known as data destruction: a process that renders access to target data on the media infeasible for a given level of effort."
+  >
+    <div class="btn-row"><a class="btn btn--accent" href="/contact-us#quote">Get a quote</a><a class="btn btn--ghost" href="/data-sanitization/guide-to-data-sanitization">Read our guide</a></div>
+  </PageHero>
+
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <div class="stack-lg">
+        <div class="stack">
+          <h2>Data sanitization and destruction services for organizations</h2>
+          <ul class="checklist">
+            <li>US NIST 800-88 Rev 1 compliant data sanitization services</li>
+            <li>Onsite and offsite degaussing, crushing, shredding and secure erasure</li>
+            <li>ISO 9001 and 14001 certified processes with NSA/CSS-evaluated equipment</li>
+            <li>Best value guaranteed for both onsite and offsite service (<a href="/data-sanitization/best-price-guarantee">see terms</a>)</li>
+          </ul>
+          <p>
+            If your organization is in a highly regulated industry, such as finance, insurance, technology, pharmaceuticals,
+            communications, energy, healthcare, the public sector or education, proper data sanitization is essential, not an
+            option or an afterthought.
+          </p>
+          <p>
+            Read our <a href="/data-sanitization/guide-to-data-sanitization">Data Sanitization Guide</a> or
+            <a href="/contact-us">contact us</a> to find out more.
+          </p>
+        </div>
+
+        <div class="stack">
+          <h2>Our data sanitization services</h2>
+          <div class="grid">
+            <article class="card card--flush">
+              <Photo img={IMG.degaussing} alt="Magnet with a magnetic field, illustrating degaussing" class="card-media" />
+              <div class="card-body"><h3>Degaussing</h3><p class="muted">Applies a strong magnetic field to randomize the stored magnetic alignment that represents data, making it unreadable.</p></div>
+            </article>
+            <article class="card card--flush">
+              <Photo img={IMG.crushedHdd} alt="Hard disk drive bent in half by a crusher" class="card-media" />
+              <div class="card-body"><h3>Crushing</h3><p class="muted">Bends the drive in half to destroy the read/write head, actuator, controller board and storage platters.</p></div>
+            </article>
+            <article class="card card--flush">
+              <Photo img={IMG.ssdShredded} alt="Shredded solid state drives and circuit boards" class="card-media" />
+              <div class="card-body"><h3>Shredding</h3><p class="muted">Destroys any storage medium irreversibly, disintegrating each one into hundreds of separate pieces.</p></div>
+            </article>
+            <article class="card card--flush">
+              <Photo img={IMG.erasure} alt="Binary data being swept away, illustrating secure erasure" class="card-media" />
+              <div class="card-body"><h3>Erasure</h3><p class="muted">Overwrite, Secure Erase and Cryptographic Erase: old data is securely erased and/or new data is written over it.</p></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="prose">
+          <h2>What is data sanitization (data destruction)?</h2>
+          <p>
+            Sanitization refers to a process that renders access to target data on the media infeasible for a given level of
+            effort (NIST SP 800-88 Rev 1, page iv).
+          </p>
+          <p>
+            The widely accepted NIST 800-88 Rev 1 guidelines classify data sanitization into three levels:
+            <a href="/data-sanitization/clear-purge-destroy">Clear, Purge and Destroy</a>. All three are acceptable methods; the
+            right choice mostly depends on how your organization classifies the importance of the data.
+          </p>
+          <p>
+            You can read more about the different standards for data sanitization (NIST 800-88 Rev 1, NSA/CSS 9-12, NSA EPL)
+            on our <a href="/data-sanitization/standards">Standards</a> page.
+          </p>
+        </div>
+
+        <div class="split split--top">
+          <Photo img={IMG.retiredDrives} alt="Pile of used hard disk drives" />
+          <div class="prose">
+            <h2 style="margin-top: 0;">Why data sanitization, in short</h2>
+            <p><strong>For you and your organization's protection.</strong></p>
+            <p>
+              It is no longer a matter of if, but how and when an organization's information is breached. End-of-life equipment
+              is one of the key routes into an organization.
+            </p>
+            <p>
+              By preventing information breaches when disposing of used IT equipment, organizations close off one more route of
+              attack and avoid potential financial losses, lawsuits, or regulatory fines. According to
+              <a href="https://www.ibm.com/sg-en/security/data-breach" rel="noopener">IBM's Cost of a Data Breach Report</a>, the
+              average cost per record of a data breach in 2021 was USD 161.
+            </p>
+            <p>
+              Two independent studies by
+              <a href="https://www.computerworld.com/article/2530795/survey--40--of-hard-drives-bought-on-ebay-hold-personal--corporate-data.html" rel="noopener">Kessler International</a>
+              and
+              <a href="https://www.blancco.com/press-releases/67-percent-used-drives-sold-ebay-craigslist-hold-personally-identifiable-information-11-percent-contain-sensitive-corporate-data/" rel="noopener">Blancco Technology Group</a>
+              found that 40% and 67% of disk drives bought from e-commerce sites still contained sensitive information from their
+              previous use, including personal data, financial information, company emails, spreadsheets and photographs.
+            </p>
+          </div>
+        </div>
+
+        <div class="prose">
+          <h2>Why data sanitization, in full</h2>
+          <p>
+            The modern storage environment is evolving rapidly. Data may pass through multiple organizations, systems and storage
+            media in its lifetime, and this is only increasing as storage moves towards distributed, cloud-based architecture. As a
+            result, more parties than ever are responsible for sanitizing media effectively, and the potential for sensitive data to
+            be collected and retained on media is substantial. This responsibility is not limited to the organizations that create
+            or finally store sensitive data: it extends to every intermediary that stores or processes the information along the way.
+          </p>
+          <p>
+            Sophisticated access controls and encryption make it harder for an attacker to reach sensitive information directly. So
+            attackers may focus instead on residual data on media that has left an organization without sufficient sanitization.
+            Effective sanitization and tracking of storage media are therefore critical to protecting sensitive data against
+            unauthorized disclosure, whether that information is on paper, optical, electronic or magnetic media.
+          </p>
+          <p>
+            An organization may dispose of media by charitable donation, internal or external transfer, or recycling in line with
+            applicable laws and regulations. Even internal transfers need scrutiny, as legal and ethical obligations to protect data
+            such as personally identifiable information (PII) are greater than ever. Whatever the media's final destination, the
+            organization must make sure no easily reconstructed data remains on it once it leaves the organization's control, or once
+            it is no longer protected at the confidentiality level of the data it holds.
+          </p>
+        </div>
+      </div>
+      <AsideNav section={path} path={path} />
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

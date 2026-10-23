@@ -1,0 +1,36 @@
+// Photos carried over from the Google Site (converted to WebP, max 960 px wide).
+// Width/height are stored so the browser reserves space and the page does not jump.
+export const IMG = {
+  cables: { src: '/images/cables.webp', w: 960, h: 960 },
+  circuitBoards: { src: '/images/circuit-boards.webp', w: 960, h: 960 },
+  compliance: { src: '/images/compliance.webp', w: 960, h: 960 },
+  crushedHdd: { src: '/images/crushed-hdd.webp', w: 960, h: 960 },
+  dataCentreAisle: { src: '/images/data-centre-aisle.webp', w: 377, h: 377 },
+  dataCentreCrew: { src: '/images/data-centre-crew.webp', w: 460, h: 460 },
+  degausserRack: { src: '/images/degausser-rack.webp', w: 505, h: 505 },
+  degausserTs1: { src: '/images/degausser-ts1.webp', w: 402, h: 402 },
+  degaussing: { src: '/images/degaussing.webp', w: 641, h: 641 },
+  destroyFragments: { src: '/images/destroy-fragments.webp', w: 960, h: 726 },
+  disposalBin: { src: '/images/disposal-bin.webp', w: 500, h: 776 },
+  equipmentTypes: { src: '/images/equipment-types.webp', w: 960, h: 966 },
+  erasure: { src: '/images/erasure.webp', w: 490, h: 490 },
+  fips199Table: { src: '/images/fips199-impact-table.webp', w: 725, h: 639 },
+  hddCrusher: { src: '/images/hdd-crusher.webp', w: 800, h: 800 },
+  hddPlatters: { src: '/images/hdd-platters.webp', w: 366, h: 366 },
+  hddShredded: { src: '/images/hdd-shredded.webp', w: 750, h: 750 },
+  hddsForRecycling: { src: '/images/hdds-for-recycling.webp', w: 960, h: 960 },
+  heatSinks: { src: '/images/heat-sinks.webp', w: 960, h: 960 },
+  insurance: { src: '/images/insurance.webp', w: 362, h: 362 },
+  nist80060Table: { src: '/images/nist-800-60-table.webp', w: 730, h: 489 },
+  nistFlow: { src: '/images/nist-sanitization-flow.webp', w: 725, h: 642 },
+  purgeMagnet: { src: '/images/purge-magnet.webp', w: 288, h: 288 },
+  recoveredMaterials: { src: '/images/recovered-materials.webp', w: 960, h: 960 },
+  retiredDrives: { src: '/images/retired-drives.webp', w: 960, h: 660 },
+  serverLift: { src: '/images/server-lift.webp', w: 800, h: 800 },
+  ssdShredded: { src: '/images/ssd-shredded.webp', w: 752, h: 752 },
+  standardsChecklist: { src: '/images/standards-checklist.webp', w: 612, h: 451 },
+  tapeLibrary: { src: '/images/tape-library.webp', w: 310, h: 188 },
+  verifyHex: { src: '/images/verify-hex.webp', w: 545, h: 389 },
+} as const;
+
+export type ImgRef = (typeof IMG)[keyof typeof IMG];

@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+import { IMG } from '../../images';
+const path = '/data-sanitization/disposal-bins';
+const crumbs = [
+  { name: 'Data Sanitization', href: '/data-sanitization' },
+  { name: 'Disposal Bins', href: path },
+];
+---
+<Base
+  title="Secure Disposal Bins for HDD, SSD, LTO Tape and USB Media"
+  description="Secure disposal bins placed in your office for hard drives, SSDs, LTO tapes and USB media, with per-piece or per-bin pricing and scheduled collection for shredding."
+  path={path}
+  crumbs={crumbs}
+  image={IMG.disposalBin.src}
+>
+  <PageHero crumbs={crumbs} eyebrow="Ongoing disposal" title="Secure Disposal Bins" lead="A locked bin in your office for storage media awaiting secure destruction." />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <div class="split split--top">
+        <div class="stack">
+          <h2>HDD, SSD, LTO tape and USB media disposal bins</h2>
+          <p class="lead">Databyte Solution places disposal bins in your organization so storage media can be collected and securely destroyed.</p>
+          <ul class="checklist">
+            <li>Per-piece or per-bin collection charges</li>
+            <li>Scheduled collection for shredding</li>
+          </ul>
+          <div><a class="btn btn--accent" href="/contact-us#quote">Ask about disposal bins</a></div>
+        </div>
+        <Photo img={IMG.disposalBin} alt="Databyte Solution secure disposal bin for HDD, SSD and LTO media" />
+      </div>
+      <AsideNav section="/data-sanitization" path={path} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

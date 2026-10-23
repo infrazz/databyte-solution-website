@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AsideNav from '../components/AsideNav.astro';
+import { IMG } from '../images';
+const path = '/compliance';
+const crumbs = [{ name: 'Compliance', href: path }];
+---
+<Base
+  title="Compliance: ISO 9001, ISO 14001 and NIST 800-88 Data Destruction"
+  description="Auditable data destruction: profiling, timestamped evidence logs, verification and certificates of sanitization, under ISO 9001 QMS, ISO 14001 EMS and NIST 800-88 Rev 1."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Compliance"
+    title="Compliance"
+    lead="ISO 9001 QMS, ISO 14001 EMS, NIST 800-88 Rev 1: we have the processes covered."
+  />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <div class="stack-lg">
+        <div class="prose">
+          <p class="lead">Compliance comes from process accountability and verification, and Databyte Solution has our partners covered.</p>
+          <p>
+            The documentation trail begins with profiling and documenting equipment and storage media before handling, continues with
+            photographic or video evidence of sanitization and verification of the outcome, and ends with an itemized report of the
+            entire process.
+          </p>
+          <p>
+            Organizations need to classify the information in their custody accurately. NIST SP 800-88 Rev 1 classifies information as
+            low, moderate or high security, but does not define which information belongs in which category. That decision is left to
+            each organization, and Databyte Solution can help, with reference to
+            <a href="https://csrc.nist.gov/publications/detail/sp/800-60/vol-1-rev-1/final" rel="noopener">NIST SP 800-60 Vol 1 Rev 1</a>.
+          </p>
+          <p>
+            When deciding which security level describes your information, think about its value, its confidentiality and the
+            consequences of losing it. Your clients' names and home addresses may not seem "high security" to you, but they may be to
+            your clients, employees or other stakeholders.
+          </p>
+          <figure class="figure">
+            <Photo img={IMG.nist80060Table} alt="NIST SP 800-60 table categorizing federal information and information systems" />
+            <figcaption>NIST SP 800-60 Vol 1 Rev 1: categorization of federal information and information systems.</figcaption>
+          </figure>
+        </div>
+        <div class="grid grid--2">
+          <div class="card">
+            <h3>Profiling and documentation</h3>
+            <p class="muted">Profiling your information systems, storage media and data is the key to full accountability and compliance.</p>
+            <p class="muted">Every storage medium we handle is logged and traceable to the individual piece, from the moment ownership transfers to Databyte Solution until it leaves us fully sanitized. Barcodes and smart vision software capture maximum detail for auditability.</p>
+          </div>
+          <div class="card">
+            <h3>Evidence and logs</h3>
+            <p class="muted">Log sheets, software erasure logs and photo or video documentation are timestamped for full accountability and traceability.</p>
+          </div>
+          <div class="card">
+            <h3>Verification</h3>
+            <p class="muted">All processes are verified with secondary checks, including sampling individual storage media for data, and photo or video logs of the destruction process or outcome.</p>
+          </div>
+          <div class="card card--dark">
+            <h3>Certification</h3>
+            <p>When the work is complete, Databyte Solution issues a certificate of data sanitization.</p>
+            <p>It lists the serial number, model or part number and storage type of each medium, with software erasure logs and photo or video evidence of destruction. The full evidence trail satisfies internal audit requirements.</p>
+          </div>
+        </div>
+      </div>
+      <AsideNav section={path} path={path} />
+    </div>
+  </section>
+  <CtaBand title="Need an audit-ready disposal record?" text="Every job comes with serial-level logs and a certificate of sanitization." />
+</Base>

@@ -1,0 +1,19 @@
+---
+import type { ImgRef } from '../images';
+interface Props {
+  img: ImgRef;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+}
+const { img, alt, class: cls, eager = false } = Astro.props;
+---
+<img
+  src={img.src}
+  width={img.w}
+  height={img.h}
+  alt={alt}
+  class={cls}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding="async"
+/>

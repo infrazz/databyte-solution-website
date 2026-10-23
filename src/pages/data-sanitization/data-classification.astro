@@ -1,0 +1,71 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+import { IMG } from '../../images';
+const path = '/data-sanitization/data-classification';
+const crumbs = [
+  { name: 'Data Sanitization', href: '/data-sanitization' },
+  { name: 'Data Classification', href: path },
+];
+---
+<Base
+  title="Data Classification Before Data Destruction (NIST 800-60, FIPS 199)"
+  description="The first step to data destruction is knowing what data you hold. How to classify data as low, moderate or high impact using FIPS PUB 199 and NIST SP 800-60."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero crumbs={crumbs} eyebrow="Before you sanitize" title="Data Classification" lead="Know what type of data you are dealing with before deciding how to sanitize it." />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <article class="prose">
+        <div class="split split--top" style="gap: 24px;">
+          <div class="stack" style="flex-basis: 380px;">
+            <h2 style="margin-top: 0;">Classifying data</h2>
+            <p>
+              The first step to data destruction is knowing what type of data we are dealing with, before deciding the appropriate
+              sanitization method.
+            </p>
+          </div>
+          <Photo img={IMG.tapeLibrary} alt="Tape library with rows of backup tapes" />
+        </div>
+        <p>
+          Organizations with limited internal guidelines on data classification can take guidance from a series of publications by
+          the National Institute of Standards and Technology (NIST), a non-regulatory US federal agency within the Department of
+          Commerce. Links to NIST's Computer Security Resource Center:
+        </p>
+        <ul>
+          <li><a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.199.pdf" rel="noopener">FIPS PUB 199</a>: Standards for Security Categorization of Federal Information and Information Systems</li>
+          <li><a href="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-60v1r1.pdf" rel="noopener">NIST SP 800-60 Volume I Revision 1</a>: Guide for Mapping Types of Information and Information Systems to Security Categories</li>
+          <li><a href="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-60v2r1.pdf" rel="noopener">NIST SP 800-60 Volume II Revision 1</a>: Appendices to the guide above</li>
+          <li><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-83r1.pdf" rel="noopener">NIST SP 800-83 Revision 1</a>: Guide to Malware Incident Prevention and Handling for Desktops and Laptops</li>
+        </ul>
+        <p>For larger IT departments, the full list of guidelines is at <a href="https://csrc.nist.gov/publications/sp800" rel="noopener">csrc.nist.gov/publications/sp800</a>.</p>
+
+        <h2>Impact levels (extract from NIST SP 800-60 Vol 1, page 10)</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Low</h3>
+            <p class="muted">Loss of confidentiality, integrity or availability could have a <strong>limited</strong> adverse effect: a noticeable reduction in effectiveness, minor damage to assets, minor financial loss, or minor harm to individuals.</p>
+          </div>
+          <div class="card">
+            <h3>Moderate</h3>
+            <p class="muted">Loss could have a <strong>serious</strong> adverse effect: significant reduction in effectiveness, significant damage to assets, significant financial loss, or significant harm to individuals not involving loss of life or serious life-threatening injury.</p>
+          </div>
+          <div class="card card--dark">
+            <h3>High</h3>
+            <p>Loss could have a <strong>severe or catastrophic</strong> adverse effect: the organization cannot perform one or more primary functions, major damage to assets, major financial loss, or severe or catastrophic harm to individuals, including loss of life.</p>
+          </div>
+        </div>
+        <p class="note">
+          Summarized from NIST SP 800-60 Vol 1 Rev 1. Read the full definitions in the publication. Once you know the impact level,
+          see <a href="/data-sanitization/clear-purge-destroy">Clear, Purge, Destroy</a> for the matching sanitization method.
+        </p>
+      </article>
+      <AsideNav section="/data-sanitization" path={path} />
+    </div>
+  </section>
+  <CtaBand title="Not sure how to classify your data?" text="We help organizations map their data to the right level of sanitization, with reference to NIST SP 800-60." />
+</Base>

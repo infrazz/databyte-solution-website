@@ -1,0 +1,25 @@
+---
+import { SITE } from '../config';
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'Need something sanitized or disposed of?',
+  text = 'Tell us what you have and where it is. We reply with a no-obligation quote.',
+} = Astro.props;
+---
+<section class="section section--light section--tight">
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--accent" href="/contact-us#quote">Get a free quote</a>
+        <a class="btn btn--ghost" href={SITE.phoneHref}>Call {SITE.phone}</a>
+      </div>
+    </div>
+  </div>
+</section>

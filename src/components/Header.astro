@@ -1,0 +1,66 @@
+---
+import Logo from './Logo.astro';
+import { NAV, SITE } from '../config';
+const { path } = Astro.props as { path: string };
+const isActive = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(href + '/'));
+---
+<div class="utility">
+  <div class="wrap">
+    <div class="utility-group">
+      <span>Serving Singapore &amp; Malaysia</span>
+      <span>NIST 800-88 · ISO 9001 · ISO 14001</span>
+    </div>
+    <div class="utility-group">
+      <a href={SITE.phoneHref}>{SITE.phone}</a>
+      <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </div>
+  </div>
+</div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Databyte Solution home">
+      <Logo />
+      <span class="brand-name">Databyte<span> Solution</span></span>
+    </a>
+
+    <nav class="nav" aria-label="Main">
+      {NAV.filter((item) => item.href !== '/contact-us').map((item) => (
+        <div class="nav-item">
+          <a class:list={['nav-link', { 'is-active': isActive(item.href) }]} href={item.href} aria-current={path === item.href ? 'page' : undefined}>
+            {item.label}
+          </a>
+          {item.children && (
+            <div class="submenu">
+              {item.children.map((c) => (
+                <a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+      <a class="btn btn--accent" href="/contact-us#quote">Get a quote</a>
+    </nav>
+
+    <details class="mobile-menu">
+      <summary aria-label="Open menu">
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+        Menu
+      </summary>
+      <div class="mobile-panel">
+        {NAV.map((item) => (
+          <div>
+            <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+            {item.children && (
+              <div class="sub">
+                {item.children.filter((c) => c.href !== item.href).map((c) => (
+                  <a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+        <a class="btn btn--accent" href="/contact-us#quote">Get a quote</a>
+      </div>
+    </details>
+  </div>
+</header>

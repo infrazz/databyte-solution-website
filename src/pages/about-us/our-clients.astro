@@ -1,0 +1,78 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+const path = '/about-us/our-clients';
+const crumbs = [
+  { name: 'About Us', href: '/about-us' },
+  { name: 'Our Clients', href: path },
+];
+---
+<Base
+  title="Our Clients: Government, Finance, MNCs and SMEs"
+  description="Public and private organizations trust Databyte Solution with end-of-life data sanitization and disposal, including MNCs, tertiary institutions, schools and healthcare organizations."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero crumbs={crumbs} eyebrow="Our clients" title="Our Clients" lead="Public and private organizations trust us with their information systems' end-of-life data sanitization and disposal." />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <article class="prose">
+        <p class="lead">
+          Our satisfied clients include public and private organizations, for example Coca-Cola, ExxonMobil, Fujifilm, tertiary
+          institutions, MOE schools and healthcare organizations.
+        </p>
+        <p>
+          Every organization has its own data sanitization and internal compliance needs. Databyte Solution works with each client and
+          partner to set the best practices and processes for their needs, while keeping the data sanitization process secure and
+          auditable.
+        </p>
+        <p><a href="https://www.google.com/search?q=databyte+solution#lrd=0x31da11ae48ccabe9:0x2fa65839038454fb,1,,," rel="noopener">Read our reviews on Google →</a></p>
+
+        <h2>Government agencies and financial institutions</h2>
+        <p>
+          Government agencies' information systems usually hold the most valuable information for malicious parties, as the data is
+          often classified and not for public access. Agencies such as defence forces, healthcare organizations and economic agencies
+          can hold highly sensitive information that must never leave organizational control. They usually require onsite destruction
+          of storage media, performed by in-house staff or by trusted third-party vendors such as Databyte Solution.
+        </p>
+        <p>
+          Financial institutions are deeply intertwined with the economy, and financial information such as bank account details and
+          statements is extremely sensitive and valuable. All financial institutions should at least purge or destroy their storage
+          media at the end of its useful life.
+        </p>
+
+        <h2>Multinational companies</h2>
+        <p>
+          Large multinational companies often hold large amounts of corporate information: financial information, employee data,
+          commercial contracts, and sensitive supplier and pricing information. If breached, it could damage these companies and their
+          business partners in the hands of competitors or malicious parties.
+        </p>
+
+        <h2>Small and medium businesses</h2>
+        <p>
+          SMEs make up most businesses in most economies, but they are also the most vulnerable to data breaches, as they usually have
+          limited IT resources for data security. That does not remove the need to dispose of used storage media and IT equipment
+          securely. With lower volumes of media, SMEs usually send their storage media offsite for sanitization.
+        </p>
+
+        <h2>Other organizations</h2>
+        <p>Databyte Solution serves organizations of all sizes, private and public.</p>
+        <p>
+          Every organization should, at a minimum, zero-overwrite or Secure Erase the storage in devices leaving its control. Single-pass
+          overwriting with zeros, ATA / SCSI / NVMe Secure Erase and Cryptographic Erase all protect data before storage media is
+          disposed of.
+        </p>
+        <p>
+          Organizations can also educate staff on cyber security and put simple controls in place: user access controls, timely
+          software updates and patching, scheduled backups, strong passwords, two-factor authentication and drive encryption, among
+          many other measures.
+        </p>
+        <p>Read our <a href="/data-sanitization/guide-to-data-sanitization">Guide to Data Sanitization</a> for more information.</p>
+      </article>
+      <AsideNav section="/about-us" path={path} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

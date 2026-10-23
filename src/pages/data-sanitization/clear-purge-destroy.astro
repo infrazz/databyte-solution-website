@@ -1,0 +1,115 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Photo from '../../components/Photo.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+import { IMG } from '../../images';
+const path = '/data-sanitization/clear-purge-destroy';
+const crumbs = [
+  { name: 'Data Sanitization', href: '/data-sanitization' },
+  { name: 'Clear, Purge, Destroy', href: path },
+];
+---
+<Base
+  title="Clear, Purge, Destroy, Verify: NIST 800-88 Sanitization Methods"
+  description="NIST 800-88 Rev 1 defines three levels of data sanitization: Clear, Purge and Destroy. How each works, when to use it, and how results are verified."
+  path={path}
+  crumbs={crumbs}
+  image={IMG.destroyFragments.src}
+>
+  <PageHero crumbs={crumbs} eyebrow="NIST 800-88 Rev 1" title="Clear, Purge, Destroy, Verify" lead="The three levels of data sanitization, and how we verify the result." />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <article class="prose">
+        <h2 style="margin-top: 0;">Classification of data</h2>
+        <p>
+          The first step to methodical data destruction is classifying the type, and therefore the security level, of the data. This
+          sets the level of sanitization required and the methods to use.
+        </p>
+        <p>
+          Organizations with limited internal guidelines can take guidance from a
+          <a href="https://csrc.nist.gov/publications/sp800" rel="noopener">series of NIST publications</a>, in particular SP 800-60
+          Vol 1 Rev 1. See also our <a href="/data-sanitization/data-classification">data classification</a> page.
+        </p>
+        <p>
+          When deciding which security level describes your information, think about its value and confidentiality, and the
+          consequences of losing it. Your clients' names and home addresses may not seem "high security" to you, but they may be to
+          your clients, employees or other stakeholders. Use this security level to decide how the storage media should be handled.
+        </p>
+
+        <div class="split split--top" style="gap: 24px;">
+          <div class="stack" style="flex-basis: 420px;">
+            <h2 style="margin-top: 0;">Clear</h2>
+            <p>
+              Software or hardware products overwrite user-addressable storage space with non-sensitive data, using the device's
+              standard read and write commands. This should cover not only the logical location of files but all user-addressable
+              locations, replacing target data with non-sensitive data.
+            </p>
+          </div>
+          <Photo img={IMG.erasure} alt="Binary data being swept away" />
+        </div>
+        <p>
+          Overwriting cannot be used on damaged or non-rewritable media, and may not reach every area where sensitive data is
+          retained. Flash-based storage, for example, may contain spare cells and use wear levelling, so not every area can be
+          addressed through the normal interface.
+        </p>
+        <p>
+          For devices other than dedicated storage, such as a basic mobile phone or office equipment, a manufacturer reset may be the
+          only option. It still counts as Clear as long as the device interface does not allow the cleared data to be retrieved.
+        </p>
+
+        <div class="split split--top" style="gap: 24px;">
+          <div class="stack" style="flex-basis: 420px;">
+            <h2 style="margin-top: 0;">Purge</h2>
+            <p>
+              Purge methods include overwrite, block erase and Cryptographic Erase, using dedicated, standardized device sanitize
+              commands that bypass the abstraction of normal read and write commands.
+            </p>
+          </div>
+          <Photo img={IMG.degausserTs1} alt="TS-1 degausser used to purge magnetic media" />
+        </div>
+        <p>
+          Destructive techniques also purge a device when applied to the right media: incineration, shredding, disintegrating,
+          degaussing and pulverizing all make recovery infeasible with state-of-the-art laboratory techniques. Bending, cutting and
+          some emergency procedures (such as shooting a hole through a drive) may only damage the media, leaving portions readable in
+          a laboratory.
+        </p>
+        <p>
+          Degaussing purges legacy magnetic devices when the degausser's strength is matched to the media's coercivity. It should never
+          be relied on alone for flash-based storage, or for magnetic storage that also holds non-volatile, non-magnetic storage. Because
+          it makes many devices unusable, degaussing is often also a destruction technique.
+        </p>
+
+        <div class="split split--top" style="gap: 24px;">
+          <div class="stack" style="flex-basis: 420px;">
+            <h2 style="margin-top: 0;">Destroy</h2>
+            <p>
+              There are many destruction techniques. Some make target data impossible to retrieve through the device interface, but a
+              device only counts as destroyed when retrieval is infeasible even with state-of-the-art laboratory techniques.
+            </p>
+          </div>
+          <Photo img={IMG.destroyFragments} alt="Storage media shredded into small fragments" />
+        </div>
+        <p>
+          Destruction may be the only option when media has failed and Clear or Purge cannot be applied, or when verification of
+          Clear or Purge fails for known or unknown reasons.
+        </p>
+
+        <div class="split split--top" style="gap: 24px;">
+          <div class="stack" style="flex-basis: 420px;">
+            <h2 style="margin-top: 0;">Verify</h2>
+            <p>Verification is needed for techniques whose results are not visible to the naked eye, such as degaussing and software erasure.</p>
+            <ul>
+              <li>A degaussed hard drive shows no response at all when plugged into its native interface.</li>
+              <li>An erased hard drive can be examined with a hex editor to confirm all data has been overwritten. This check is usually built into the erasure software.</li>
+            </ul>
+          </div>
+          <Photo img={IMG.verifyHex} alt="Hex editor view of an overwritten drive" />
+        </div>
+      </article>
+      <AsideNav section="/data-sanitization" path={path} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

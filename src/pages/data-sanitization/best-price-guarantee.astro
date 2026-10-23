@@ -1,0 +1,60 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+const path = '/data-sanitization/best-price-guarantee';
+const crumbs = [
+  { name: 'Data Sanitization', href: '/data-sanitization' },
+  { name: 'Best Price Guarantee', href: path },
+];
+---
+<Base
+  title="Best Price Guarantee for Data Sanitization"
+  description="Found a better data sanitization quote? Databyte Solution will match it and take a further 10% off the competitor's quote. Terms and conditions apply."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Best price guarantee"
+    title="Best pricing and value in the industry, guaranteed"
+    lead="Found a better data sanitization quote elsewhere? We will beat it.*"
+  >
+    <div class="btn-row"><a class="btn btn--accent" href="/contact-us#quote">Chat with us for a quote</a></div>
+  </PageHero>
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <article class="prose">
+        <p class="lead">Databyte Solution promises to provide the best-value data sanitization services in the industry.</p>
+        <h2>How can we offer the best prices?</h2>
+        <p>
+          Best-in-class, lightweight, wall-plug-friendly data sanitization equipment means significant savings in manpower and
+          logistics, and a lower cost of service.
+        </p>
+        <p>
+          If you find a better quote than Databyte Solution's for data sanitization services, we will match it and take a further 10%
+          off the competitor's quote.*
+        </p>
+        <h2 id="fine-print">The fine print</h2>
+        <p>*The price guarantee applies under these conditions:</p>
+        <ul>
+          <li>Identical scope and terms of data sanitization work, with equipment of similar specifications</li>
+          <li>Same payment terms and conditions</li>
+          <li>The competing quotation is within its validity period</li>
+          <li>The Databyte Solution quotation validity, completion of service or invoice is within the past 14 days</li>
+          <li>The competing quote is from a provider based and operating in the same regions covered by Databyte Solution</li>
+          <li>Proof of the official price quote is provided on request (email or official quotation)</li>
+        </ul>
+        <p>If the work has already been paid for, customers will be refunded the price difference.</p>
+        <p>
+          Databyte Solution reserves the right to decline to match unreasonable quotations. While we strive to provide the best value,
+          we cannot match a quotation where the man-hours and logistics costs of the work far outweigh the quoted price. We seek our
+          customers' kind understanding and will respectfully decline to match any such quotation.
+        </p>
+      </article>
+      <AsideNav section="/data-sanitization" path={path} />
+    </div>
+  </section>
+  <CtaBand title="Send us your quote to beat" text="Share the competing quotation and scope, and we will come back with our price." />
+</Base>

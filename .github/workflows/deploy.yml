@@ -1,0 +1,90 @@
+# Builds the Astro site and deploys it to Cloudflare Pages project "databyte-solution-website".
+#
+#   push to main            -> PRODUCTION  (https://databyte-solution-website.pages.dev, later www.databytesolution.com)
+#   pull request to main    -> PREVIEW     (https://pr-<number>.databyte-solution-website.pages.dev)
+#   Actions tab > Run       -> PRODUCTION  (manual re-deploy of main)
+#
+# Completely separate from the landing page pipeline (repo infrazz/databyte-solution, project databyte-quote).
+# Never point this workflow at databyte-quote or serverdisposal.databytesolution.com.
+#
+# One-time setup: add repository secret CLOUDFLARE_API_TOKEN
+# (same kind of token as the landing page: Account > Cloudflare Pages > Edit).
+
+name: Deploy website
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: website-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+  deployments: write
+  pull-requests: write
+
+env:
+  CLOUDFLARE_ACCOUNT_ID: 9df86834b0d7ed1c3f28c632787914be # not a secret; same account as the landing page
+  PAGES_PROJECT: databyte-solution-website
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          # setup-node fails outright when cache: npm is set and no lock file exists, so only cache once package-lock.json is committed.
+          cache: ${{ hashFiles('package-lock.json') != '' && 'npm' || '' }}
+
+      - name: Install
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+
+      - name: Build and check links
+        run: npm run build
+
+      - name: Create Pages project if it does not exist yet
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          npx --yes wrangler@4 pages project list | grep -q "$PAGES_PROJECT" \
+            || npx --yes wrangler@4 pages project create "$PAGES_PROJECT" --production-branch main
+
+      - name: Deploy
+        id: deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          # Without pipefail, "| tee" would hide a failed deploy and the step would pass.
+          set -o pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BRANCH="pr-${{ github.event.pull_request.number }}"
+          else
+            BRANCH="main"
+          fi
+          npx --yes wrangler@4 pages deploy dist --project-name "$PAGES_PROJECT" --branch "$BRANCH" --commit-dirty=true | tee deploy.log
+          URL=$(grep -oE 'https://[a-zA-Z0-9.-]+\.pages\.dev' deploy.log | tail -1 || true)
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Comment preview link on the PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const url = `https://pr-${context.issue.number}.${process.env.PAGES_PROJECT}.pages.dev`;
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: context.issue.number,
+              body: `Preview: ${url}\n(Deployment: ${{ steps.deploy.outputs.url }})`,
+            });

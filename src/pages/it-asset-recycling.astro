@@ -1,0 +1,150 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { IMG } from '../images';
+const path = '/it-asset-recycling';
+const crumbs = [{ name: 'IT Asset Recycling', href: path }];
+const equipment = [
+  'Laptops / notebooks', 'Desktop computers', 'Apple products (Mac, iPad, iPhone)', 'Mobile phones and tablets',
+  'Monitors and peripherals', 'Servers and racks', 'Network switches and equipment', 'Printers', 'Copiers', 'Scanners',
+  'Cameras', 'Audio-visual equipment', 'Teleconferencing and IP telephony equipment', 'Cabling', 'UPS and power supplies',
+];
+---
+<Base
+  title="IT Asset Disposal & E-Waste Recycling with Secure Data Sanitization"
+  description="Secure IT asset disposal and e-waste recycling for organizations in Singapore: ISO 9001 & 14001 certified, NIST 800-88 erasure, next-business-day collection."
+  path={path}
+  crumbs={crumbs}
+  image={IMG.circuitBoards.src}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="IT asset disposal"
+    title="IT Asset Disposal and Recycling"
+    lead="Organization IT asset and e-waste recycling, made safe through secure data sanitization."
+  >
+    <div class="btn-row"><a class="btn btn--accent" href="/contact-us#quote">Book a collection</a></div>
+  </PageHero>
+
+  <section class="section section--surface">
+    <div class="wrap split">
+      <div class="stack">
+        <h2>IT asset and e-waste disposal and recycling for organizations</h2>
+        <ul class="checklist">
+          <li>ISO 9001 and 14001 certified processes for data destruction and disposal of IT equipment and e-waste</li>
+          <li>US NIST 800-88 Rev 1 compliant <a href="/data-sanitization">erasure</a> of all data storage media and information</li>
+          <li>One-stop solution for businesses and organizations, with next-business-day* collection</li>
+          <li>Used by many organizations, including MNCs, schools, hospitals and cyber security firms</li>
+        </ul>
+        <p>Dispose of or recycle your IT assets securely and responsibly. <a href="/contact-us">Contact us today</a>, or find out more about <a href="/about-us">why Databyte Solution</a>.</p>
+        <p class="small muted">*Please confirm collection timing with us when booking.</p>
+      </div>
+      <Photo img={IMG.equipmentTypes} alt="Types of IT equipment we handle: computers, drives, circuit boards and components" />
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="wrap stack-lg">
+      <div class="section-head">
+        <h2>E-waste and equipment we handle</h2>
+        <p class="lead">Databyte Solution handles a wide range of IT equipment, including:</p>
+      </div>
+      <ul class="checklist cols-2">
+        {equipment.map((e) => <li>{e}</li>)}
+        <li>Other equipment and e-waste: <a href="/contact-us">please ask us</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap stack-lg">
+      <div class="section-head">
+        <span class="eyebrow">Reduce, Reuse, Recycle</span>
+        <h2>The 3Rs, in order</h2>
+        <p class="lead">Reduce, Reuse, Recycle are terms we often hear. Did you know they are in order of priority?</p>
+      </div>
+      <div class="grid">
+        <div class="card"><h3>1. Reduce</h3><p><strong>Use only what you need and reduce waste.</strong></p><p class="muted">Organizations can extend the life of assets and equipment where possible, reducing the waste generated.</p></div>
+        <div class="card"><h3>2. Reuse</h3><p><strong>Use things again, for the same or a new purpose.</strong></p><p class="muted">Working parts such as RAM, LCDs, keyboards and power supplies can be recovered to repair and refurbish other devices.</p></div>
+        <div class="card"><h3>3. Recycle</h3><p><strong>Turn waste into useful products.</strong></p><p class="muted">Circuit boards and metals are processed to extract resources, instead of mining them from the ground.</p></div>
+      </div>
+      <p>Following the 3Rs protects the environment, conserves limited resources, reduces the space needed for waste disposal facilities and extends the lifespan of landfills.</p>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="wrap split split--top">
+      <div class="prose">
+        <h2 style="margin-top: 0;">What needs to be sanitized during recycling?</h2>
+        <p>
+          Storage media includes solid state drives, hard disk drives and other storage types. These need to be evaluated and
+          categorized to set the level of sanitization required (<a href="/data-sanitization/clear-purge-destroy">Clear, Purge or Destroy</a>),
+          according to the organization's data classification.
+        </p>
+        <p>
+          For information with a high security categorization, storage media should be destroyed. For lower classifications, NIST SP
+          800-88 Rev 1 allows media to be cleared or purged, documented, and then recycled instead of destroyed.
+        </p>
+        <p>
+          More on security categorization: <a href="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-60v1r1.pdf" rel="noopener">NIST SP 800-60 Rev 1</a>.
+          <a href="https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.199.pdf" rel="noopener">FIPS 199</a> sets security categories based
+          on the magnitude of harm expected from a compromise, and organizations can use it as a general principle.
+        </p>
+      </div>
+      <figure class="figure">
+        <Photo img={IMG.nistFlow} alt="NIST 800-88 flowchart for choosing Clear, Purge or Destroy by security categorization" />
+        <figcaption>Sanitization and disposition decision flow, NIST SP 800-88 Rev 1.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap stack-lg">
+      <div class="section-head">
+        <h2>Our e-waste sorting and recycling process</h2>
+        <p class="lead">Every item that arrives at Databyte Solution is sorted to maximize reuse and recycling.</p>
+      </div>
+      <ol class="steps">
+        <li><strong>Equipment type</strong><span>Sorted into categories such as network equipment, cables, desktop computers and monitors.</span></li>
+        <li><strong>Condition</strong><span>Working equipment is set aside for reuse; working parts are stripped from non-working equipment as spares (reduce).</span></li>
+        <li><strong>Material type</strong><span>Hazardous materials such as batteries and toner are removed. Metals and circuit boards go to material recycling (recycle).</span></li>
+      </ol>
+      <p>
+        This process maximizes what is reused and reduces the waste generated. Parts and materials that cannot be reused efficiently
+        are disassembled and sent to dedicated facilities for material extraction and recycling. Only materials that cannot be
+        recycled are sent for incineration and landfill.
+      </p>
+      <div class="grid grid--4">
+        <article class="card card--flush"><Photo img={IMG.circuitBoards} alt="Pile of circuit boards" class="card-media" /><div class="card-body"><h3>Circuit boards</h3><p class="muted small">Metals and materials extracted for recycling.</p></div></article>
+        <article class="card card--flush"><Photo img={IMG.hddsForRecycling} alt="Hard disk drives sorted for recycling" class="card-media" /><div class="card-body"><h3>Hard disk drives</h3><p class="muted small">Magnetic materials and metals extracted for processing and reuse.</p></div></article>
+        <article class="card card--flush"><Photo img={IMG.heatSinks} alt="CPU heat sinks" class="card-media" /><div class="card-body"><h3>CPU heat sinks</h3><p class="muted small">Metal recycling.</p></div></article>
+        <article class="card card--flush"><Photo img={IMG.cables} alt="Tangled cables and connectors" class="card-media" /><div class="card-body"><h3>Cables and connectors</h3><p class="muted small">Conductive metal (e.g. copper) recycling.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="wrap prose">
+      <h2 style="margin-top: 0;">What should be reused and recycled?</h2>
+      <p>
+        Machines, equipment and parts with no built-in memory or information storage can and should be repurposed or reused. This
+        includes laptop, desktop, server and networking hardware once storage media such as hard disks, SSDs and flash memory cards
+        are removed.
+      </p>
+      <p>
+        Some storage cannot be removed, such as storage chips soldered onto certain Apple machines and other manufacturers' newer
+        devices. Depending on the sensitivity of the data, the choice is then to securely erase and purge the data on the machine, or
+        to destroy the device's circuit board by shredding.
+      </p>
+      <p>
+        For these devices, we reuse and recycle as many parts as possible that are certain not to contain any information, such as
+        LCDs, keyboards and chassis. They are used to repair and refurbish other devices, extending their life before they enter the
+        waste stream.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand title="Clearing out old IT equipment?" text="Tell us what you have. We collect, sanitize, and reuse or recycle it responsibly." />
+</Base>

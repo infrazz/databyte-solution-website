@@ -1,0 +1,140 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, TRACKING } from '../config';
+
+interface Crumb { name: string; href: string }
+interface Props {
+  title: string;
+  description: string;
+  path: string; // e.g. '/data-sanitization/equipment' or '/' for home
+  image?: string; // social share image path
+  crumbs?: Crumb[];
+  noindex?: boolean;
+}
+const { title, description, path, image = '/images/retired-drives.webp', crumbs = [], noindex = false } = Astro.props;
+const fullTitle = path === '/' ? title : `${title} | Databyte Solution`;
+const canonical = path === '/' ? `${SITE.url}/` : `${SITE.url}${path}`;
+
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE.url}/#org`,
+  name: SITE.legalName,
+  alternateName: SITE.name,
+  url: `${SITE.url}/`,
+  logo: `${SITE.url}/logo.png`,
+  email: SITE.email,
+  telephone: SITE.phone,
+  description: SITE.description,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: SITE.address.street,
+    addressLocality: SITE.address.locality,
+    postalCode: SITE.address.postalCode,
+    addressCountry: SITE.address.country,
+  },
+  areaServed: ['SG', 'MY'],
+  sameAs: [SITE.linkedin, SITE.serverDisposalLanding],
+};
+const breadcrumb = crumbs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ name: 'Home', href: '/' }, ...crumbs].map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        item: c.href === '/' ? `${SITE.url}/` : `${SITE.url}${c.href}`,
+      })),
+    }
+  : null;
+const ga4 = TRACKING.ga4;
+const adsId = TRACKING.adsId;
+const conversions = TRACKING.conversions;
+const productionHost = TRACKING.productionHost;
+---
+<!doctype html>
+<html lang="en-SG">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#0b1d3f" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.png" type="image/png" sizes="160x160" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Databyte Solution" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${SITE.url}${image}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(org)} />
+    {breadcrumb && <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />}
+
+    <!-- Theme preview for reviewers: ?theme=teal | green | charcoal (Dark Blue is the default). -->
+    <script is:inline>
+      (function () {
+        try {
+          var t = new URLSearchParams(location.search).get('theme');
+          if (t) sessionStorage.setItem('dbs-theme', t);
+          t = t || sessionStorage.getItem('dbs-theme');
+          if (t && t !== 'navy') document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- Google Analytics 4 (+ Google Ads when configured). Runs only on the real domain, never on previews. -->
+    <script is:inline define:vars={{ ga4, adsId, productionHost }}>
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.dbsTrackingOn = location.hostname === productionHost;
+      if (window.dbsTrackingOn) {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4;
+        document.head.appendChild(s);
+        gtag('js', new Date());
+        gtag('config', ga4);
+        if (adsId) gtag('config', adsId);
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header path={path} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <!-- Lead tracking: calls, WhatsApp and email clicks. The quote form reports its own success. -->
+    <script is:inline define:vars={{ conversions }}>
+      window.dbsTrack = function (kind, extra) {
+        if (!window.dbsTrackingOn) return;
+        gtag('event', kind === 'form' ? 'generate_lead' : 'contact_click', Object.assign({ method: kind }, extra || {}));
+        if (conversions[kind]) gtag('event', 'conversion', { send_to: conversions[kind] });
+      };
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        var h = a.getAttribute('href');
+        if (h.indexOf('tel:') === 0) window.dbsTrack('call');
+        else if (h.indexOf('wa.me') !== -1) window.dbsTrack('whatsapp');
+        else if (h.indexOf('mailto:') === 0) window.dbsTrack('email');
+      });
+    </script>
+  </body>
+</html>

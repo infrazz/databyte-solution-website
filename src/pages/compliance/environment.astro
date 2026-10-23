@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+const path = '/compliance/environment';
+const crumbs = [
+  { name: 'Compliance', href: '/compliance' },
+  { name: 'Environment', href: path },
+];
+---
+<Base
+  title="Environment: Balancing Data Security and Recycling"
+  description="How to balance data sanitization needs with cost and the environment: when to shred, and when secure erasure lets equipment be recycled or refurbished."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Environment"
+    title="Environment"
+    lead="Balancing data sanitization needs with cost and the environment is one of the trickiest decisions for our partners and clients."
+  />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <article class="prose">
+        <p>
+          Physical destruction by shredding gives total confidence in data sanitization and eliminates the chance of data recovery.
+          After all, what information can you recover from thousands of pieces? At the same time, shredding makes recycling more
+          complex and less likely, because it gets in the way of recovering materials further downstream.
+        </p>
+        <p>
+          Environmentally conscious clients may choose secure erasure for storage media that does not hold highly sensitive
+          information, so the equipment can be recycled for its materials or refurbished for a second useful life.
+        </p>
+        <p>
+          For example, a customer might choose an erasure method (Secure Erase or Cryptographic Erase) for Apple MacBook Pros from late
+          2017 onwards, which have soldered-on storage and memory. The choice there is between physically destroying the entire device's
+          circuit boards, or securely erasing the storage drive.
+        </p>
+        <p>
+          <a href="/contact-us">Contact us</a> to find out how we can work together on securing both your data and the future of our
+          environment.
+        </p>
+      </article>
+      <AsideNav section="/compliance" path={path} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

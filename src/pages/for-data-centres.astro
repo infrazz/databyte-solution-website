@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { IMG } from '../images';
+import { SITE } from '../config';
+const path = '/for-data-centres';
+const crumbs = [{ name: 'For Data Centres', href: path }];
+---
+<Base
+  title="Data Centre Decommissioning & Server Disposal in Singapore"
+  description="Data centre decommissioning in Singapore: unracking, onsite data sanitization, rack removal and reinstatement, equipment remarketing and full records. NEA licensed, ISO 9001 & 14001."
+  path={path}
+  crumbs={crumbs}
+  image={IMG.dataCentreCrew.src}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Data centre decommissioning"
+    title="For Data Centres"
+    lead="A comprehensive suite of services for data centre decommissioning: unracking, data sanitization, rack reinstatement and rack removal."
+  >
+    <div class="btn-row">
+      <a class="btn btn--accent" href="/contact-us#quote">Plan a decommission</a>
+      <a class="btn btn--ghost" href={SITE.serverDisposalLanding}>Get a server disposal quote</a>
+    </div>
+  </PageHero>
+
+  <section class="section section--surface">
+    <div class="wrap stack-lg">
+      <div class="section-head"><h2>Databyte Solution for data centres</h2></div>
+      <div class="grid grid--4">
+        <div class="card"><div class="icon-tile"><Icon name="lock" /></div><h3>Information security</h3><p class="muted">All storage media can be sanitized or destroyed onsite for 100% information security.</p></div>
+        <div class="card"><div class="icon-tile"><Icon name="recycle" /></div><h3>Remarketing and recycling</h3><p class="muted">Recover value from equipment to offset other decommissioning costs.</p></div>
+        <div class="card"><div class="icon-tile"><Icon name="doc" /></div><h3>Full equipment records</h3><p class="muted">Detailed records of equipment and storage media for internal compliance.</p></div>
+        <div class="card"><div class="icon-tile"><Icon name="shield" /></div><h3>Licensed and certified</h3><p class="muted">NEA licensed and ISO 9001, 14001 certified.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="wrap stack-lg">
+      <div class="section-head"><h2>Why Databyte Solution for your data centre decommissioning?</h2></div>
+      <div class="grid grid--4">
+        <article class="card card--flush"><Photo img={IMG.serverLift} alt="Server lift used to safely unrack equipment" class="card-media card-media--contain" /><div class="card-body"><h3>Safe operations</h3><p class="muted small">Professional equipment ensures safe operations.</p></div></article>
+        <article class="card card--flush"><Photo img={IMG.degausserRack} alt="Enterprise degausser" class="card-media card-media--contain" /><div class="card-body"><h3>Guaranteed destruction</h3><p class="muted small">NSA-evaluated equipment guarantees information destruction.</p></div></article>
+        <article class="card card--flush"><Photo img={IMG.dataCentreCrew} alt="Technician working in a data centre aisle" class="card-media" /><div class="card-body"><h3>Experienced crew</h3><p class="muted small">A professionally trained and experienced crew.</p></div></article>
+        <article class="card card--flush"><Photo img={IMG.insurance} alt="Insurance policy document" class="card-media" /><div class="card-body"><h3>Insured</h3><p class="muted small">Public liability insurance covers any unforeseen incidents.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Decommissioning a server room or data hall?" text="Tell us the number of racks, location and timeline. We plan the work around your schedule." />
+</Base>

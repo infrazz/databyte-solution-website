@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import Icon from '../components/Icon.astro';
+import { SITE } from '../config';
+const path = '/contact-us';
+const crumbs = [{ name: 'Contact Us', href: path }];
+---
+<Base
+  title="Contact Us for a Secure Disposal Quote"
+  description="Contact Databyte Solution for a no-obligation chat about secure data sanitization and IT asset disposal. Call or WhatsApp +65 8839 5009 or email hello@databytesolution.com."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Contact us"
+    title="Contact Us"
+    lead="Reach out today for a no-obligation chat about secure disposal. If you'd like to know how to securely sanitize or dispose of your storage media and devices, we would love to hear from you."
+  >
+    <div class="btn-row">
+      <a class="btn btn--accent" href={SITE.whatsappHref} rel="noopener"><Icon name="whatsapp" size={20} />WhatsApp us</a>
+      <a class="btn btn--ghost" href={SITE.phoneHref}><Icon name="phone" size={20} />{SITE.phone}</a>
+    </div>
+  </PageHero>
+
+  <QuoteForm heading="Request a quote" intro="Tell us what you need to dispose of. We reply with a no-obligation quote, usually within one business day." />
+
+  <section class="section section--light">
+    <div class="wrap split split--top">
+      <div class="stack">
+        <h2>Visit or write to us</h2>
+        <p class="lead">Our Singapore main office is at the IMM Building.</p>
+        <address style="font-style: normal;">
+          <strong>{SITE.legalName}</strong><br />
+          {SITE.address.street}<br />
+          {SITE.address.locality} {SITE.address.postalCode}
+        </address>
+        <ul class="checklist">
+          <li>Call / SMS / WhatsApp: <a href={SITE.phoneHref}>{SITE.phone}</a></li>
+          <li>Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li>West Malaysia enquiries: please email <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        </ul>
+        <p>Chat soon,<br />The Databyte Solution team</p>
+      </div>
+      <iframe
+        class="map"
+        title="Map: IMM Building, 2 Jurong East Street 21, Singapore 609601"
+        src="https://www.google.com/maps?q=IMM+Building,+2+Jurong+East+Street+21,+Singapore+609601&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+</Base>

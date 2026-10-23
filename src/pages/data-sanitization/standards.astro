@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+const path = '/data-sanitization/standards';
+const crumbs = [
+  { name: 'Data Sanitization', href: '/data-sanitization' },
+  { name: 'Standards', href: path },
+];
+---
+<Base
+  title="Data Sanitization Standards: NIST SP 800-88, NSA/CSS 9-12 and NSA EPL"
+  description="The standards behind secure data destruction: NIST SP 800-88 Rev 1 Guidelines for Media Sanitization, the NSA/CSS Policy Manual 9-12 and the NSA Evaluated Products List."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero crumbs={crumbs} eyebrow="Standards" title="Data Sanitization Standards" lead="The international standards and guidelines our processes follow." />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <article class="prose">
+        <h2 style="margin-top: 0;">The need for standards</h2>
+        <p>
+          Without a set of standards, what people consider "destroyed", or how they think data is protected, would differ widely
+          from what is actually needed to ensure complete destruction. Standards, and devices that meet them, mean that data needing
+          protection is disposed of properly. That ranges from your own personally identifiable information (PII) to national and
+          military secrets that protect millions of lives.
+        </p>
+
+        <h2>US National Institute of Standards and Technology, NIST SP 800-88 Rev 1</h2>
+        <p>
+          NIST Special Publication 800-88 Revision 1, Guidelines for Media Sanitization, is the current internationally recognized
+          standard for organizations and agencies sanitizing data and storage media that leave their control.
+        </p>
+        <p><a href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-88r1.pdf" rel="noopener">Read NIST SP 800-88 Rev 1 (PDF)</a></p>
+
+        <h2>NSA/CSS Policy Manual 9-12</h2>
+        <p>
+          The NSA/CSS Policy Manual 9-12, Storage Device Sanitization and Destruction Manual, gives routine guidance for sanitizing
+          information system storage devices for disposal or recycling, in line with DoD Manual 5200.01 Volume 3, Intelligence
+          Community Standard 500-34 (Electronic Waste Management and Disposal) and NSA/CSS Policy 9-12. Information on these devices
+          may range from UNCLASSIFIED to TOP SECRET. The manual also explains how to obtain current listings of evaluated
+          sanitization equipment that meets NSA/CSS specifications.
+        </p>
+        <p><a href="https://www.nsa.gov/Resources/Media-Destruction-Guidance/" rel="noopener">NSA media destruction guidance</a></p>
+
+        <h2>National Security Agency Evaluated Products List (EPL)</h2>
+        <p>
+          The NSA/CSS Evaluated Products List is a continually updated list of products proven to destroy data beyond recovery. Our
+          <a href="/data-sanitization/equipment">degausser and HDD crusher</a> are NSA/CSS-evaluated models.
+        </p>
+        <p><a href="https://www.nsa.gov/Resources/Media-Destruction-Guidance/NSA-Evaluated-Products-Lists-EPLs/" rel="noopener">NSA Evaluated Products Lists</a></p>
+      </article>
+      <AsideNav section="/data-sanitization" path={path} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

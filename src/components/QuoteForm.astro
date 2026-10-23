@@ -1,0 +1,141 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../config';
+interface Props {
+  heading?: string;
+  intro?: string;
+  surface?: 'surface' | 'light';
+}
+const {
+  heading = 'Tell us what you need to retire',
+  intro = "Send us the details and we'll come back with a no-obligation quote. Prefer to talk? Call or WhatsApp us.",
+  surface = 'surface',
+} = Astro.props;
+const items = ['Servers', 'Hard drives & SSDs', 'Laptops & PCs', 'Network equipment', 'Tapes & other media', 'Whole data centre / server room'];
+---
+<section id="quote" class:list={['section', surface === 'light' ? 'section--light' : 'section--surface']}>
+  <div class="wrap quote">
+    <div class="quote-intro">
+      <span class="eyebrow">Get a quote</span>
+      <h2>{heading}</h2>
+      <p class="lead">{intro}</p>
+      <div class="quote-links">
+        <a class="quote-link" href={SITE.whatsappHref} rel="noopener">
+          <span><strong>WhatsApp {SITE.phone}</strong><span>Send photos or a list of items</span></span>
+          <Icon name="whatsapp" />
+        </a>
+        <a class="quote-link" href={`mailto:${SITE.email}`}>
+          <span><strong>{SITE.email}</strong><span>Singapore and West Malaysia enquiries</span></span>
+          <Icon name="mail" />
+        </a>
+        <a class="quote-link quote-link--dark" href={SITE.phoneHref}>
+          <span><strong>{SITE.phone}</strong><span>Call / SMS: speak to our team</span></span>
+          <Icon name="phone" />
+        </a>
+      </div>
+    </div>
+
+    <form class="form" id="quote-form" action="/api/quote" method="post" novalidate>
+      <div class="form-row">
+        <label class="field">Name <span class="req" aria-hidden="true">*</span>
+          <input type="text" name="name" autocomplete="name" required />
+        </label>
+        <label class="field">Company
+          <input type="text" name="company" autocomplete="organization" />
+        </label>
+      </div>
+      <div class="form-row">
+        <label class="field">Work email <span class="req" aria-hidden="true">*</span>
+          <input type="email" name="email" autocomplete="email" required />
+        </label>
+        <label class="field">Phone
+          <input type="tel" name="phone" autocomplete="tel" />
+        </label>
+      </div>
+      <fieldset>
+        <legend>What do you need to dispose of?</legend>
+        <div class="options">
+          {items.map((it) => (
+            <label class="option"><input type="checkbox" name="items" value={it} />{it}</label>
+          ))}
+        </div>
+      </fieldset>
+      <label class="field">Quantity, location and timing
+        <textarea name="message" rows="4" placeholder="e.g. 40 servers and 200 drives in Jurong, onsite shredding needed by end of month"></textarea>
+      </label>
+      <label class="hp" aria-hidden="true">Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+      <div class="form-status" role="status" aria-live="polite"></div>
+      <div class="btn-row">
+        <button class="btn btn--accent" type="submit">Request my quote</button>
+      </div>
+      <p class="form-note">We use your details only to reply to this enquiry.</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('quote-form');
+  if (form) {
+    const status = form.querySelector('.form-status');
+    const button = form.querySelector('button[type="submit"]');
+    const show = (state, html) => {
+      status.dataset.state = state;
+      status.innerHTML = html;
+    };
+    const mailtoFallback = (data) => {
+      const body = [
+        `Name: ${data.name}`,
+        `Company: ${data.company || '-'}`,
+        `Email: ${data.email}`,
+        `Phone: ${data.phone || '-'}`,
+        `Items: ${data.items.join(', ') || '-'}`,
+        '',
+        data.message || '',
+      ].join('\n');
+      return `mailto:hello@databytesolution.com?subject=${encodeURIComponent('Quote request from ' + data.name)}&body=${encodeURIComponent(body)}`;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(form);
+      const data = {
+        name: String(fd.get('name') || '').trim(),
+        company: String(fd.get('company') || '').trim(),
+        email: String(fd.get('email') || '').trim(),
+        phone: String(fd.get('phone') || '').trim(),
+        items: fd.getAll('items').map(String),
+        message: String(fd.get('message') || '').trim(),
+        website: String(fd.get('website') || ''),
+        page: location.pathname,
+      };
+      if (!data.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        show('error', 'Please enter your name and a valid email address.');
+        return;
+      }
+      button.disabled = true;
+      button.textContent = 'Sending…';
+      try {
+        const res = await fetch('/api/quote', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          form.reset();
+          show('ok', 'Thank you. Your request has been sent and we will reply shortly, usually within one business day.');
+          if (window.dbsTrack) window.dbsTrack('form', { page: location.pathname });
+        } else {
+          throw new Error('status ' + res.status);
+        }
+      } catch (err) {
+        show(
+          'error',
+          `Sorry, the form could not be sent. Please <a href="${mailtoFallback(data)}">email your request</a> or WhatsApp us at <a href="https://wa.me/6588395009">+65 8839 5009</a>.`
+        );
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Request my quote';
+      }
+    });
+  }
+</script>

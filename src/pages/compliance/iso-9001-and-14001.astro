@@ -1,0 +1,49 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import AsideNav from '../../components/AsideNav.astro';
+const path = '/compliance/iso-9001-and-14001';
+const crumbs = [
+  { name: 'Compliance', href: '/compliance' },
+  { name: 'ISO 9001 and 14001', href: path },
+];
+---
+<Base
+  title="ISO 9001 QMS and ISO 14001 EMS Certified"
+  description="Databyte Solution is certified to ISO 9001:2015 Quality Management System and ISO 14001:2015 Environmental Management System by Guardian Independent Certification."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="Certification"
+    title="ISO 9001 QMS and ISO 14001 EMS Certified"
+    lead="Databyte Solution is certified to ISO 9001:2015 Quality Management System and ISO 14001:2015 Environmental Management System by Guardian Independent Certification."
+  />
+  <section class="section section--surface">
+    <div class="wrap with-aside">
+      <div class="grid grid--2">
+        <article class="card">
+          <span class="eyebrow">ISO 9001:2015</span>
+          <h2 style="font-size: 26px;">Quality Management System</h2>
+          <p class="muted">
+            <a href="https://www.iso.org/iso-9001-quality-management.html" rel="noopener">ISO 9001</a> sets out the criteria for a
+            quality management system. It is based on quality management principles including a strong customer focus, the motivation
+            and involvement of top management, the process approach and continual improvement.
+          </p>
+        </article>
+        <article class="card">
+          <span class="eyebrow">ISO 14001:2015</span>
+          <h2 style="font-size: 26px;">Environmental Management System</h2>
+          <p class="muted">
+            <a href="https://www.iso.org/standard/60857.html" rel="noopener">ISO 14001:2015</a> specifies the requirements for an
+            environmental management system that an organization can use to improve its environmental performance.
+          </p>
+        </article>
+      </div>
+      <AsideNav section="/compliance" path={path} />
+    </div>
+  </section>
+  <CtaBand />
+</Base>

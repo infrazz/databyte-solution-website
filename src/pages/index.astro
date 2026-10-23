@@ -1,0 +1,239 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Photo from '../components/Photo.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { IMG } from '../images';
+import { SITE } from '../config';
+
+const rack = [
+  ['U42  SRV-01', 1, 0], ['U40  SRV-02', 0, 0], ['U38  SAN-01', 1, 1], ['U36  SAN-02', 1, 0], ['U34  SW-CORE', 0, 0],
+  ['U32  SRV-03', 1, 0], ['U30  SRV-04', 1, 1], ['U28  NAS-01', 0, 0], ['U26  SRV-05', 1, 0],
+];
+---
+<Base
+  title="Databyte Solution | Data Sanitization, Server Disposal & IT Asset Recycling in Singapore"
+  description="Onsite data sanitization, server disposal and data centre decommissioning in Singapore and Malaysia. NIST 800-88 compliant, ISO 9001 & 14001 certified, NSA/CSS-evaluated equipment."
+  path="/"
+>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <a class="hero-pill" href="/data-sanitization/clear-purge-destroy">
+          <b>GUIDE</b><span>Clear, purge or destroy? Choosing the right method</span><span aria-hidden="true">→</span>
+        </a>
+        <h1>Secure IT disposal, made simple.</h1>
+        <p class="lead">
+          Onsite data sanitization, server disposal and data centre decommissioning across Singapore and Malaysia,
+          done to NIST 800-88 with a certificate for every asset.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--accent" href="#quote">Get a free quote</a>
+          <a class="btn btn--ghost" href={SITE.phoneHref}>Call {SITE.phone}</a>
+        </div>
+        <ul class="ticks">
+          <li><Icon name="check" size={16} />Onsite or offsite</li>
+          <li><Icon name="check" size={16} />Certificate of destruction</li>
+          <li><Icon name="check" size={16} />Best price guarantee</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="rack">
+          <div class="rack-head"><span>RACK A-07</span><span>DECOMMISSION</span></div>
+          {rack.map(([label, a, b]) => (
+            <div class="rack-unit"><i class={a ? 'on' : ''}></i><i class={b ? 'on' : ''}></i><hr /><code>{label}</code></div>
+          ))}
+        </div>
+        <div class="cert-card">
+          <strong><svg width="18" height="18" viewBox="0 0 18 18"><circle cx="9" cy="9" r="8" fill="var(--link)"></circle><path d="M5 9.5l2.5 2.5 5.5-5.5" fill="none" stroke="#fff" stroke-width="2"></path></svg>Certificate issued</strong>
+          <span>Method: NIST 800-88 Purge / Destroy</span>
+          <span>Serial-level log for every drive</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip section--surface section--line section--tight" style="padding: 28px 0;">
+    <div class="wrap">
+      <span class="strip-label">Standards we work to</span>
+      <ul class="chips">
+        <li>NIST SP 800-88 Rev 1</li>
+        <li>ISO 9001</li>
+        <li>ISO 14001</li>
+        <li>NSA/CSS-evaluated equipment</li>
+        <li>NEA licensed</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--light" id="services">
+    <div class="wrap stack-lg">
+      <div class="section-head">
+        <span class="eyebrow">What we do</span>
+        <h2>One partner for every IT asset you retire</h2>
+        <p class="lead">
+          Specialists in onsite data sanitization and IT asset recycling in Singapore and Malaysia. From a single drive to a
+          full data hall, we wipe, destroy, recover and recycle, with one point of contact from start to finish.
+        </p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="icon-tile"><Icon name="lock" /></div>
+          <h3><a href="/data-sanitization">Data Sanitization</a></h3>
+          <p class="muted">Secure erasure, degaussing and physical destruction of drives and media, at your site or ours, with NSA/CSS-evaluated equipment.</p>
+          <ul>
+            <li>Onsite shredding, crushing and degaussing</li>
+            <li>Clear, Purge and Destroy to NIST 800-88 Rev 1</li>
+            <li>Serial-level records and certificate</li>
+          </ul>
+          <a class="more" href="/data-sanitization">Explore sanitization →</a>
+        </article>
+        <article class="card">
+          <div class="icon-tile"><Icon name="recycle" /></div>
+          <h3><a href="/it-asset-recycling">IT Asset Recycling</a></h3>
+          <p class="muted">Sorting, reuse and responsible recycling of IT equipment, keeping e-waste out of landfill and incinerators.</p>
+          <ul>
+            <li>Laptops, PCs, servers and network gear</li>
+            <li>Data protected before anything is reused</li>
+            <li>Disposal bins for ongoing collection</li>
+          </ul>
+          <a class="more" href="/it-asset-recycling">Explore recycling →</a>
+        </article>
+        <article class="card card--dark">
+          <div class="icon-tile"><Icon name="rack" /></div>
+          <h3><a href="/for-data-centres">Data Centre Decommissioning</a></h3>
+          <p>Unracking, data sanitization, rack removal and rack reinstatement for server rooms and data halls.</p>
+          <ul>
+            <li>All storage sanitized or destroyed onsite</li>
+            <li>Equipment remarketing to offset costs</li>
+            <li>Full equipment and media records</li>
+          </ul>
+          <a class="more" href="/for-data-centres">Plan a decommission →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap split">
+      <Photo img={IMG.retiredDrives} alt="Retired hard disk drives waiting for secure destruction" />
+      <div class="stack">
+        <span class="eyebrow">About Databyte</span>
+        <h2>Retire your IT without risking your data or the environment</h2>
+        <p class="lead">
+          We help organizations sanitize and dispose of information and technology systems in compliance with international
+          standards, while minimizing waste sent to landfills and incinerators.
+        </p>
+        <ul class="checklist">
+          <li>Specialized expertise in onsite data sanitization and secure asset disposal</li>
+          <li>Best-in-class, NSA/CSS-evaluated professional equipment that we own and operate</li>
+          <li>Compliant with NIST 800-88, ISO 9001 and ISO 14001, and local regulations</li>
+          <li>One-stop solution for IT decommissioning, with <a href="/data-sanitization/best-price-guarantee">best prices guaranteed</a></li>
+        </ul>
+        <div><a class="btn btn--dark" href="/about-us">See how we work</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="wrap stack-lg">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2>A clear chain of custody, start to finish</h2>
+      </div>
+      <ol class="steps">
+        <li><strong>Assess &amp; quote</strong><span>Tell us what you have. We confirm the scope, method and price.</span></li>
+        <li><strong>Collect or come onsite</strong><span>Secure collection, or our team brings the equipment to your premises.</span></li>
+        <li><strong>Sanitize or destroy</strong><span>Erase, degauss, crush or shred to NIST 800-88, logged by serial number.</span></li>
+        <li><strong>Reuse &amp; recycle</strong><span>Data-free parts are reused; the rest is recycled at licensed facilities.</span></li>
+        <li><strong>Certificate &amp; report</strong><span>You receive a certificate and itemized records for your audit.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap stack-lg">
+      <div class="section-head">
+        <span class="eyebrow">What you can expect</span>
+        <h2>Why organizations choose Databyte Solution</h2>
+      </div>
+      <div class="facts">
+        <div class="fact"><b>World-class service</b><span>Our customers are the focus of our work, with support at every step.</span></div>
+        <div class="fact"><b>One-stop solution</b><span>A single point of contact for data sanitization and IT asset disposal.</span></div>
+        <div class="fact"><b>Best value</b><span>Simply put, we will not be beaten on value. <a href="/data-sanitization/best-price-guarantee" style="color: var(--accent);">See the guarantee</a>.</span></div>
+        <div class="fact"><b>Enterprise-grade equipment</b><span>NSA/CSS-evaluated degausser and crusher for peace of mind.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap stack-lg">
+      <div class="section-head">
+        <span class="eyebrow">Our services in practice</span>
+        <h2>From one drive to a whole data hall</h2>
+      </div>
+      <div class="grid grid--4">
+        <a class="card card--flush" href="/for-data-centres" style="text-decoration: none; color: inherit;">
+          <Photo img={IMG.dataCentreAisle} alt="Data centre aisle with server racks" class="card-media" />
+          <div class="card-body"><h3>Data centre decommissioning</h3><p class="muted small">Dismantling, removal and rack reinstatement services.</p></div>
+        </a>
+        <a class="card card--flush" href="/compliance" style="text-decoration: none; color: inherit;">
+          <Photo img={IMG.compliance} alt="Gears labelled regulations, compliance and policies" class="card-media" />
+          <div class="card-body"><h3>Certified processes</h3><p class="muted small">Guided by NIST SP 800-88 Rev 1, ISO 9001 and ISO 14001.</p></div>
+        </a>
+        <a class="card card--flush" href="/data-sanitization" style="text-decoration: none; color: inherit;">
+          <Photo img={IMG.hddPlatters} alt="Hard disk drives opened to show the platters" class="card-media" />
+          <div class="card-body"><h3>Data sanitization</h3><p class="muted small">Erasure, degaussing and physical destruction, onsite or offsite.</p></div>
+        </a>
+        <a class="card card--flush" href="/it-asset-recycling" style="text-decoration: none; color: inherit;">
+          <Photo img={IMG.recoveredMaterials} alt="Sorted materials recovered from recycled IT equipment" class="card-media" />
+          <div class="card-body"><h3>IT asset recycling</h3><p class="muted small">Sorting for reuse and recycling instead of landfill.</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--light section--line section--tight">
+    <div class="wrap stack" style="align-items: center; text-align: center;">
+      <span class="strip-label">Trusted by public and private organizations</span>
+      <ul class="chips" style="justify-content: center;">
+        <li>Multinational companies</li>
+        <li>Government agencies</li>
+        <li>Financial institutions</li>
+        <li>Tertiary institutions &amp; schools</li>
+        <li>Hospitals &amp; healthcare</li>
+        <li>Cyber security firms</li>
+      </ul>
+      <a href="/about-us/our-clients">Read about our clients →</a>
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap grid grid--2">
+      <div class="card">
+        <span class="eyebrow">Coverage</span>
+        <h2 style="font-size: 30px;">Onsite service in Singapore and Malaysia</h2>
+        <div class="grid">
+          <div class="stack" style="gap: 6px; background: var(--light); border-radius: 12px; padding: 20px;">
+            <strong>Singapore</strong>
+            <span class="muted small">{SITE.address.street}, {SITE.address.locality} {SITE.address.postalCode}</span>
+            <a href={SITE.phoneHref}>{SITE.phone}</a>
+          </div>
+          <div class="stack" style="gap: 6px; background: var(--light); border-radius: 12px; padding: 20px;">
+            <strong>West Malaysia</strong>
+            <span class="muted small">Enquiries by email</span>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </div>
+        </div>
+      </div>
+      <div class="card card--dark">
+        <div class="icon-tile"><Icon name="shield" /></div>
+        <h2 style="font-size: 28px;">Best price guarantee</h2>
+        <p>Found a better like-for-like data sanitization quote? We will match it and take 10% off the competitor's price.</p>
+        <a class="more" href="/data-sanitization/best-price-guarantee">Read the terms →</a>
+      </div>
+    </div>
+  </section>
+
+  <QuoteForm surface="light" />
+</Base>

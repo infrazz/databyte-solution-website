@@ -1,0 +1,112 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Photo from '../components/Photo.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { IMG } from '../images';
+import { SITE } from '../config';
+const path = '/about-us';
+const crumbs = [{ name: 'About Us', href: path }];
+---
+<Base
+  title="About Databyte Solution"
+  description="Databyte Solution delivers quick, secure and cost-effective data sanitization and IT equipment disposal in Singapore and Malaysia. ISO 9001 & 14001 certified, NIST 800-88 compliant."
+  path={path}
+  crumbs={crumbs}
+>
+  <PageHero
+    crumbs={crumbs}
+    eyebrow="About us"
+    title="About Databyte Solution"
+    lead="We help organizations sanitize and dispose of information and technology systems in compliance with international standards, while minimizing waste sent to landfills and incinerators."
+  />
+
+  <section class="section section--surface">
+    <div class="wrap grid grid--4">
+      <div class="card"><div class="icon-tile"><Icon name="shield" /></div><h3>Our mission</h3><p class="muted">To deliver quick, secure and cost-effective data sanitization, helping our partners securely decommission their information systems and equipment.</p></div>
+      <div class="card"><div class="icon-tile"><Icon name="check" /></div><h3>Our values</h3><p class="muted">Integrity, Responsibility and Excellence. These values and our mission guide every interaction with our partners and customers.</p></div>
+      <div class="card"><div class="icon-tile"><Icon name="users" /></div><h3>Customer focus</h3><p class="muted">Our customers are the focus of our work. Our team works hard to make the whole experience of working with us a satisfying one.</p></div>
+      <div class="card"><div class="icon-tile"><Icon name="tools" /></div><h3>Our equipment</h3><p class="muted">We own our enterprise-grade equipment (degausser, crusher, shredder) and logistics, to bring the best cost efficiency to our partners.</p></div>
+    </div>
+  </section>
+
+  <section class="section section--light">
+    <div class="wrap split">
+      <div class="stack">
+        <h2>Why Databyte Solution?</h2>
+        <ul class="checklist">
+          <li>One-stop data sanitization and secure equipment disposal partner for your organization</li>
+          <li>ISO 9001 QMS and ISO 14001 EMS certified processes</li>
+          <li>NIST 800-88 Rev 1 compliant data sanitization</li>
+          <li>Serialized destruction of storage media, backed by enterprise-level NSA/CSS-evaluated equipment</li>
+          <li>World-class customer service and support</li>
+        </ul>
+        <p><a href="https://www.google.com/search?q=databyte+solution#lrd=0x31da11ae48ccabe9:0x2fa65839038454fb,1,,," rel="noopener">Read our reviews on Google →</a></p>
+      </div>
+      <Photo img={IMG.degausserTs1} alt="Databyte Solution's NSA/CSS-evaluated TS-1 degausser" />
+    </div>
+  </section>
+
+  <section class="section section--surface">
+    <div class="wrap grid grid--2">
+      <div class="card">
+        <h3>World-class customer service and support</h3>
+        <p class="muted">World-class service and support is part of every job with Databyte Solution. If anything about our service falls short, email us at <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we will make it right as soon as possible.</p>
+      </div>
+      <div class="card">
+        <h3>Specialized expertise and guidance</h3>
+        <p class="muted">As direct data sanitization specialists, we offer quick, secure, hassle-free services at the most competitive prices, backed by our experience with data centre and corporate requirements.</p>
+      </div>
+      <div class="card">
+        <h3>Best-in-class enterprise equipment</h3>
+        <ul class="muted">
+          <li>We operate NSA/CSS-evaluated equipment with some of the fastest cycle times</li>
+          <li>Portable, lightest-in-class, wall-plug-friendly equipment we can deploy anywhere</li>
+          <li>Equipment rated for continuous duty</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Onsite destruction capabilities</h3>
+        <ul class="muted">
+          <li>We can destroy all types of storage media onsite at any supported location</li>
+          <li>Witness your storage media sanitized at your premises, with no doubt</li>
+          <li>Try our onsite services risk-free with our <a href="/data-sanitization/best-price-guarantee">price guarantee</a></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Best cost and chain of custody</h3>
+        <ul class="muted">
+          <li>Secure chain of custody with our own equipment, manpower and logistics</li>
+          <li>Lightweight equipment with fast cycle times means manpower and logistics savings and a lower cost of service</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>One-stop solution for IT decommissioning</h3>
+        <p class="muted">A single point of contact and a full suite of services for the entire IT hardware decommissioning process: asset audit, data sanitization, disposal, remarketing and data centre smart hands.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="wrap prose">
+      <span class="eyebrow">Certificates and licences</span>
+      <h2 style="margin-top: 0;">Fully licensed, certified and auditable</h2>
+      <p>
+        Local waste licences are required to dispose of e-waste properly under government regulations. We comply fully with local
+        environmental regulations and take responsibility for the waste generated by our data sanitization work.
+      </p>
+      <p>
+        For additional assurance, we are ISO 9001 QMS and ISO 14001 EMS certified for Data Destruction Services and Scrapping of
+        Electronic Equipment and Computer Systems.
+      </p>
+      <p>
+        Our partners receive Certificates of Destruction and Disposal at the end of each job, along with log sheets, log files and
+        optional photo or video documentation of the erasure and destruction of each storage medium. This gives a solid audit trail
+        for every information storage device we sanitize.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>

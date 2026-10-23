@@ -1,0 +1,17 @@
+---
+import { NAV } from '../config';
+interface Props {
+  section: string; // top-level href, e.g. '/data-sanitization'
+  path: string;
+}
+const { section, path } = Astro.props;
+const item = NAV.find((n) => n.href === section);
+---
+{item?.children && (
+  <nav class="aside-nav" aria-label={`${item.label} pages`}>
+    <strong>{item.label}</strong>
+    {item.children.map((c) => (
+      <a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>
+    ))}
+  </nav>
+)}

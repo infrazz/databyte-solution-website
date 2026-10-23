@@ -1,0 +1,12 @@
+---
+// Databyte "D" mark, traced from the official logo so it stays sharp at any size.
+// Uses currentColor: white on dark backgrounds, ink on light ones.
+const { title } = Astro.props as { title?: string };
+---
+<svg viewBox="0 0 47 51" role={title ? 'img' : undefined} aria-hidden={title ? undefined : 'true'} aria-label={title}>
+  <rect x="0" y="0" width="8" height="43" fill="currentColor"></rect>
+  <polygon points="18,0 33,0 37,9 17,9" fill="currentColor"></polygon>
+  <polygon points="38,11 46,17 46,37 38,42" fill="currentColor"></polygon>
+  <rect x="18" y="20" width="12" height="12" fill="currentColor"></rect>
+  <polygon points="9,43 37,43 33,51 9,51" fill="currentColor"></polygon>
+</svg>

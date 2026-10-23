@@ -1,0 +1,52 @@
+---
+import Icon from './Icon.astro';
+import { SITE } from '../config';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-cols">
+      <div>
+        <strong style="font-family: var(--font-display); font-size: 20px;">Databyte Solution</strong>
+        <span style="max-width: 340px;">Secure data sanitization, IT asset recycling and data centre decommissioning in Singapore and Malaysia.</span>
+        <address>
+          {SITE.legalName}<br />
+          {SITE.address.street}<br />
+          {SITE.address.locality} {SITE.address.postalCode}
+        </address>
+      </div>
+      <div>
+        <strong>Data Sanitization</strong>
+        <a href="/data-sanitization">Services</a>
+        <a href="/data-sanitization/guide-to-data-sanitization">Guide</a>
+        <a href="/data-sanitization/equipment">Equipment</a>
+        <a href="/data-sanitization/standards">Standards</a>
+        <a href="/data-sanitization/disposal-bins">Disposal bins</a>
+      </div>
+      <div>
+        <strong>Services</strong>
+        <a href="/it-asset-recycling">IT Asset Recycling</a>
+        <a href="/for-data-centres">For Data Centres</a>
+        <a href={SITE.serverDisposalLanding}>Server disposal quote</a>
+        <a href="/data-sanitization/best-price-guarantee">Best Price Guarantee</a>
+      </div>
+      <div>
+        <strong>Company</strong>
+        <a href="/about-us">About us</a>
+        <a href="/about-us/our-clients">Our clients</a>
+        <a href="/compliance">Compliance</a>
+        <a href="/compliance/iso-9001-and-14001">ISO 9001 &amp; 14001</a>
+        <a href="/contact-us">Contact us</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>© {year} {SITE.legalName}. All rights reserved.</span>
+      <span>
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> · <a href={SITE.phoneHref}>{SITE.phone}</a> · <a href={SITE.linkedin} rel="noopener">LinkedIn</a>
+      </span>
+    </div>
+  </div>
+</footer>
+<a class="wa-float" href={SITE.whatsappHref} aria-label="Chat with us on WhatsApp" rel="noopener">
+  <Icon name="whatsapp" size={28} />
+</a>
