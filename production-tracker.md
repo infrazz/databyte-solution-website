@@ -27,7 +27,7 @@ How to use (for people and Claude Code):
 - [x] W-01 · Copy content of all 17 Google Sites pages and 47 images · Claude · DONE · 2026-10-22 · Raw export in `_migration/` (git-ignored); 30 photos kept as WebP in `public/images/`, stock clip-art replaced by icons
 - [x] W-02 · Build Astro site from approved Dark Blue mockup: 17 pages at the same URLs, 404, sitemap, robots, redirects, JSON-LD, GA4, quote form, middleware, CI workflow · Claude · DONE · 2026-10-22 · Not compiled yet: npm was blocked in Claude's sandbox. Static checks passed (links, images, tags)
 - [x] W-03 · First build on the PC: `npm install`, `npm run build` (must print "Site check passed"), fix any errors, commit incl. `package-lock.json` · Claude Code (PC) · DONE · 2026-10-23 · Built first time, no fixes needed: "Site check passed: 17 old URLs present, 18 pages, all internal links resolve." `npm audit` flags astro 5 / sharp / esbuild (fix = astro 7 major upgrade), see W-12
-- [ ] W-04 · Add GitHub secret `CLOUDFLARE_API_TOKEN` to `infrazz/databyte-solution-website` (same token type as the landing page: Account › Cloudflare Pages › Edit) · Team · TODO · 2026-10-23 · Not set yet (checked 2026-10-23). After adding it, re-run the failed "Deploy website" Action
+- [ ] W-04 · Add GitHub secret `CLOUDFLARE_API_TOKEN` to `infrazz/databyte-solution-website` (same token type as the landing page: Account › Cloudflare Pages › Edit) · Team · TODO · 2026-10-23 · Not set yet (checked 2026-10-23). Step-by-step in `README.md` › "One-time setup: deploy secret". After adding it, re-run the failed "Deploy website" Action
 - [ ] W-05 · Push to `main`; first Action run creates Pages project `databyte-solution-website` and deploys; check the pages.dev URL loads · Claude Code (PC) · IN PROGRESS · 2026-10-23 · Pushed 2026-10-23. Deploy step fails until W-04; then re-run the Action and check the pages.dev URL
 - [ ] W-06 · Create free HubSpot account for Databyte (separate from Portable Shredder), form with fields firstname, lastname, email, company, phone, message; notifications to hello@; add `HUBSPOT_PORTAL_ID` + `HUBSPOT_FORM_GUID` to Pages env (Production + Preview); send a test enquiry · Team/Claude · TODO · 2026-10-22 ·
 - [ ] W-07 · Google Ads: create conversion actions (Form, Call, WhatsApp, Email) and put IDs/labels in `TRACKING` in `src/config.ts` · Team/Claude · TODO · 2026-10-22 · Same Ads account as the landing page
@@ -56,6 +56,7 @@ Runbook: plan doc, "DNS cutover runbook". Do not start without the boss's go (W-
 
 ## Change log
 
+- 2026-10-23 · Added step-by-step instructions for creating the Cloudflare token and the `CLOUDFLARE_API_TOKEN` GitHub secret to `README.md` (W-04).
 - 2026-10-23 · W-03 done: `npm install` + `npm run build` pass on the PC, site check passed. Code + `package-lock.json` committed and pushed to `main` (W-05). Deploy waits for the `CLOUDFLARE_API_TOKEN` secret (W-04).
 - 2026-10-22 · Site built in this repo by Claude: 17 pages migrated from Google Sites at identical URLs, Dark Blue design from the approved mockup, quote form (HubSpot), GA4, JSON-LD, sitemap, CI/CD to Pages project `databyte-solution-website`. Awaiting first build on the PC (W-03).
 - 2026-10-22 · Plan approved (all 13 decisions). Two separate pipelines confirmed: landing page stays in `databyte-solution`.
