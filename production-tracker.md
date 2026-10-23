@@ -17,6 +17,7 @@ How to use (for people and Claude Code):
 | New site | Builds cleanly on the PC (17 pages + 404, site check passed); pushed to `main`, deploy waits for W-04 |
 | Preview URL | Appears after W-05: https://databyte-solution-website.pages.dev |
 | Quote form | Built; waits for HubSpot IDs (W-06) |
+| Review comments | Comment button on previews built (W-13); needs private repo, token, passcode (W-14) |
 | GA4 | `G-Q844JS8CQH` wired in (production host only) |
 | Google Ads conversions | Placeholders; waits for IDs (W-07) |
 | Landing page | Untouched, separate pipeline (repo `databyte-solution`, project `databyte-quote`) |
@@ -32,9 +33,11 @@ How to use (for people and Claude Code):
 - [ ] W-06 · Create free HubSpot account for Databyte (separate from Portable Shredder), form with fields firstname, lastname, email, company, phone, message; notifications to hello@; add `HUBSPOT_PORTAL_ID` + `HUBSPOT_FORM_GUID` to Pages env (Production + Preview); send a test enquiry · Team/Claude · TODO · 2026-10-22 ·
 - [ ] W-07 · Google Ads: create conversion actions (Form, Call, WhatsApp, Email) and put IDs/labels in `TRACKING` in `src/config.ts` · Team/Claude · TODO · 2026-10-22 · Same Ads account as the landing page
 - [ ] W-08 · Visual check of every page on desktop and phone on the preview URL; fix layout issues · Claude · TODO · 2026-10-22 · After W-05
-- [ ] W-09 · Boss reviews all pages and copy on the preview URL (theme: Dark Blue default; `?theme=teal|green|charcoal` to compare) · Mgmt · TODO · 2026-10-22 ·
+- [ ] W-09 · Boss reviews all pages and copy on the preview URL (theme: Dark Blue default; `?theme=teal|green|charcoal` to compare) · Mgmt · TODO · 2026-10-23 · Use the yellow Comment button (bottom-left) once W-14 is done; Claude works through the issues
 - [ ] W-10 · Boss confirms client names shown publicly (Coca-Cola, ExxonMobil, Fujifilm on Our Clients) are still approved · Mgmt · TODO · 2026-10-22 · Carried over from the old site
 - [ ] W-11 · Optional: replace stock photos with real Databyte job photos (team onsite, shredding, certificates) · Team · TODO · 2026-10-22 ·
+- [x] W-13 · Preview-only review mode: Comment button on `*.pages.dev` saves comments (page, position, nearby text, screen size, pin link) as GitHub issues · Claude · DONE · 2026-10-23 · `ReviewComments.astro` + `functions/api/review-comment.js`; tested locally (mocked GitHub) on desktop and phone; needs W-14 to work live
+- [ ] W-14 · Set up review comments: private repo `infrazz/databyte-website-review`, fine-grained token (that repo only, Issues read/write), reviewer passcode; add `GITHUB_REVIEW_TOKEN`, `REVIEW_REPO`, `REVIEW_PASSCODE` to Pages (Production + Preview), redeploy, send a test comment · Team · TODO · 2026-10-23 · Steps in `README.md` › "Review comments". After W-04/W-05. Revoke token after review
 - [ ] W-12 · Review `npm audit` findings (astro <=7.3.1 advisories, sharp/libvips, esbuild dev-server on Windows). Most target SSR/server islands, which this static site doesn't use; upgrade to Astro 7 in a PR and re-check the build · Claude · TODO · 2026-10-23 · Major version bump; do before go-live if it builds cleanly
 
 ## Phase B: DNS cutover (prepare 27–29 Oct, switch Sat 31 Oct evening)
@@ -56,6 +59,7 @@ Runbook: plan doc, "DNS cutover runbook". Do not start without the boss's go (W-
 
 ## Change log
 
+- 2026-10-23 · W-13: preview-only review comment mode added (Comment button → GitHub issues in a private repo, passcode protected). Setup for the team in `README.md` (W-14).
 - 2026-10-23 · Added step-by-step instructions for creating the Cloudflare token and the `CLOUDFLARE_API_TOKEN` GitHub secret to `README.md` (W-04).
 - 2026-10-23 · W-03 done: `npm install` + `npm run build` pass on the PC, site check passed. Code + `package-lock.json` committed and pushed to `main` (W-05). Deploy waits for the `CLOUDFLARE_API_TOKEN` secret (W-04).
 - 2026-10-22 · Site built in this repo by Claude: 17 pages migrated from Google Sites at identical URLs, Dark Blue design from the approved mockup, quote form (HubSpot), GA4, JSON-LD, sitemap, CI/CD to Pages project `databyte-solution-website`. Awaiting first build on the PC (W-03).

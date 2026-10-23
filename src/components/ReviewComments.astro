@@ -1,0 +1,242 @@
+---
+// Review comment mode for the boss / team, preview only.
+// On *.pages.dev (and localhost) a "Comment" button appears bottom-left. Click it, click a spot on
+// the page, type the comment: it is saved as a GitHub issue by functions/api/review-comment.js.
+// On www.databytesolution.com the script stops at the first line, so visitors never see it.
+// ?pin=<x%>,<y px> (the "Open at the spot" link in each issue) shows where a comment was made.
+---
+<script>
+  const host = location.hostname;
+  const active = host.endsWith('.pages.dev') || host === 'localhost' || host === '127.0.0.1';
+
+  if (active) {
+    const KEY = { name: 'dbs-review-name', pass: 'dbs-review-pass' };
+    const store = {
+      get: (k: string) => { try { return localStorage.getItem(k) || ''; } catch { return ''; } },
+      set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch {} },
+      del: (k: string) => { try { localStorage.removeItem(k); } catch {} },
+    };
+
+    const css = `
+      .rv-btn{position:fixed;left:18px;bottom:18px;z-index:1000;display:flex;align-items:center;gap:8px;padding:12px 18px;border:0;border-radius:999px;background:#f5b70a;color:#1a1300;font:600 15px/1 'Public Sans',system-ui,sans-serif;box-shadow:0 10px 24px rgba(0,0,0,.3);cursor:pointer}
+      .rv-btn[aria-pressed=true]{background:#fff;color:#0b1d3f;outline:3px solid #f5b70a}
+      .rv-bar{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:1001;padding:10px 16px;border-radius:10px;background:#1a1300;color:#fff;font:500 14px/1.3 'Public Sans',system-ui,sans-serif;box-shadow:0 8px 20px rgba(0,0,0,.3);max-width:calc(100vw - 32px);text-align:center}
+      html.rv-picking, html.rv-picking *{cursor:crosshair!important}
+      .rv-pin{position:absolute;z-index:999;width:28px;height:28px;margin:-14px 0 0 -14px;border-radius:50%;background:#f5b70a;color:#1a1300;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4);font:700 12px/22px 'Public Sans',system-ui,sans-serif;text-align:center;pointer-events:none}
+      .rv-pin.rv-pulse{animation:rv-pulse 1.4s ease-out 4}
+      @keyframes rv-pulse{0%{box-shadow:0 0 0 0 rgba(245,183,10,.8)}100%{box-shadow:0 0 0 22px rgba(245,183,10,0)}}
+      .rv-box{position:fixed;z-index:1002;width:min(340px,calc(100vw - 32px));padding:16px;border-radius:12px;background:#fff;color:#0b1d3f;box-shadow:0 16px 40px rgba(0,0,0,.35);font:400 14px/1.4 'Public Sans',system-ui,sans-serif}
+      .rv-box label{display:block;margin:0 0 4px;font-weight:600;font-size:13px}
+      .rv-box textarea,.rv-box input{display:block;width:100%;box-sizing:border-box;margin:0 0 10px;padding:8px 10px;border:1px solid #b9c3d6;border-radius:8px;font:inherit;color:inherit;background:#fff}
+      .rv-box textarea{min-height:96px;resize:vertical}
+      .rv-row{display:flex;gap:8px;justify-content:flex-end}
+      .rv-row button{padding:9px 16px;border-radius:8px;border:1px solid #b9c3d6;background:#fff;color:#0b1d3f;font:600 14px/1 'Public Sans',system-ui,sans-serif;cursor:pointer}
+      .rv-row button.rv-send{background:#0b1d3f;border-color:#0b1d3f;color:#fff}
+      .rv-row button:disabled{opacity:.6;cursor:wait}
+      .rv-msg{margin:0 0 10px;font-size:13px;color:#b42318}
+      .rv-msg:empty{display:none}
+      .rv-toast{position:fixed;left:18px;bottom:76px;z-index:1001;padding:10px 14px;border-radius:10px;background:#0b1d3f;color:#fff;font:500 14px/1.3 'Public Sans',system-ui,sans-serif;box-shadow:0 8px 20px rgba(0,0,0,.3)}
+    `;
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+
+    const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls: string, text = '') => {
+      const n = document.createElement(tag);
+      n.className = cls;
+      if (text) n.textContent = text;
+      return n;
+    };
+
+    const addPin = (xPct: number, y: number, label: string, pulse = false) => {
+      const pin = el('div', 'rv-pin' + (pulse ? ' rv-pulse' : ''), label);
+      pin.style.left = `${xPct}%`;
+      pin.style.top = `${y}px`;
+      pin.dataset.review = '';
+      document.body.appendChild(pin);
+      return pin;
+    };
+
+    // Show the spot from an issue's "Open at the spot" link.
+    const pinParam = new URLSearchParams(location.search).get('pin');
+    if (pinParam && /^\d{1,3},\d{1,6}$/.test(pinParam)) {
+      const [px, py] = pinParam.split(',').map(Number);
+      addPin(px, py, '!', true);
+      window.scrollTo({ top: Math.max(0, py - innerHeight / 3), behavior: 'smooth' });
+    }
+
+    const toast = (text: string) => {
+      const t = el('div', 'rv-toast', text);
+      t.dataset.review = '';
+      document.body.appendChild(t);
+      setTimeout(() => t.remove(), 4000);
+    };
+
+    // Short, readable description of what was clicked, for the issue.
+    const describe = (target: Element) => {
+      const parts: string[] = [];
+      let n: Element | null = target;
+      while (n && n !== document.body && parts.length < 4) {
+        let p = n.tagName.toLowerCase();
+        if (n.id) { parts.unshift(`${p}#${n.id}`); break; }
+        const c = [...n.classList].find((k) => !k.startsWith('astro-'));
+        if (c) p += `.${c}`;
+        parts.unshift(p);
+        n = n.parentElement;
+      }
+      const block = target.closest('h1,h2,h3,h4,p,li,a,button,figcaption,td,th,label') || target;
+      const text = (block.textContent || (block as HTMLImageElement).alt || '').replace(/\s+/g, ' ').trim().slice(0, 140);
+      return { selector: parts.join(' > '), text };
+    };
+
+    const button = el('button', 'rv-btn', 'Comment');
+    button.type = 'button';
+    button.setAttribute('aria-pressed', 'false');
+    button.title = 'Review mode (preview only): click, then click the spot you want to comment on';
+    button.dataset.review = '';
+    document.body.appendChild(button);
+
+    let bar: HTMLElement | null = null;
+    let box: HTMLElement | null = null;
+    let draftPin: HTMLElement | null = null;
+    let count = 0;
+
+    const stopPicking = () => {
+      document.documentElement.classList.remove('rv-picking');
+      button.setAttribute('aria-pressed', 'false');
+      button.textContent = 'Comment';
+      bar?.remove();
+      bar = null;
+      document.removeEventListener('click', onPick, true);
+    };
+    const closeBox = () => {
+      box?.remove();
+      box = null;
+      draftPin?.remove();
+      draftPin = null;
+    };
+    const startPicking = () => {
+      closeBox();
+      document.documentElement.classList.add('rv-picking');
+      button.setAttribute('aria-pressed', 'true');
+      button.textContent = 'Cancel';
+      bar = el('div', 'rv-bar', 'Click the spot you want to comment on. Esc to cancel.');
+      bar.dataset.review = '';
+      document.body.appendChild(bar);
+      // Capture phase so links and buttons on the page do not fire while picking.
+      setTimeout(() => document.addEventListener('click', onPick, true), 0);
+    };
+
+    function onPick(e: MouseEvent) {
+      const target = e.target as Element;
+      if (target.closest('[data-review]')) return;
+      e.preventDefault();
+      e.stopPropagation();
+      stopPicking();
+      const docW = document.documentElement.scrollWidth || innerWidth;
+      const xPct = Math.min(100, Math.max(0, Math.round((e.pageX / docW) * 100)));
+      const y = Math.round(e.pageY);
+      draftPin = addPin(xPct, y, String(count + 1));
+      openBox(e.clientX, e.clientY, { xPct, y, ...describe(target) });
+    }
+
+    const openBox = (cx: number, cy: number, spot: { xPct: number; y: number; selector: string; text: string }) => {
+      const savedName = store.get(KEY.name);
+      const savedPass = store.get(KEY.pass);
+      box = el('div', 'rv-box');
+      box.dataset.review = '';
+      box.setAttribute('role', 'dialog');
+      box.setAttribute('aria-label', 'Add review comment');
+      box.innerHTML = `
+        <label for="rv-text">Comment</label>
+        <textarea id="rv-text" placeholder="What should change here?"></textarea>
+        <div class="rv-who"${savedName ? ' hidden' : ''}>
+          <label for="rv-name">Your name</label>
+          <input id="rv-name" autocomplete="name" />
+        </div>
+        <div class="rv-pass"${savedPass ? ' hidden' : ''}>
+          <label for="rv-pass">Review passcode</label>
+          <input id="rv-pass" type="password" autocomplete="off" />
+        </div>
+        <p class="rv-msg" role="alert"></p>
+        <div class="rv-row"><button type="button" class="rv-cancel">Cancel</button><button type="button" class="rv-send">Send</button></div>`;
+      document.body.appendChild(box);
+      const q = <T extends Element>(s: string) => box!.querySelector(s) as T;
+      const text = q<HTMLTextAreaElement>('#rv-text');
+      const name = q<HTMLInputElement>('#rv-name');
+      const pass = q<HTMLInputElement>('#rv-pass');
+      const msg = q<HTMLElement>('.rv-msg');
+      const send = q<HTMLButtonElement>('.rv-send');
+      name.value = savedName;
+      pass.value = savedPass;
+
+      // Place next to the click, kept inside the screen.
+      const r = box.getBoundingClientRect();
+      box.style.left = `${Math.max(16, Math.min(cx + 16, innerWidth - r.width - 16))}px`;
+      box.style.top = `${Math.max(16, Math.min(cy + 16, innerHeight - r.height - 16))}px`;
+      text.focus();
+
+      q<HTMLButtonElement>('.rv-cancel').addEventListener('click', closeBox);
+      send.addEventListener('click', async () => {
+        msg.textContent = '';
+        if (!text.value.trim()) { msg.textContent = 'Please type a comment.'; return; }
+        if (!pass.value.trim()) { (q('.rv-pass') as HTMLElement).hidden = false; msg.textContent = 'Please enter the review passcode.'; return; }
+        send.disabled = true;
+        send.textContent = 'Sending…';
+        try {
+          const res = await fetch('/api/review-comment', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              comment: text.value,
+              name: name.value,
+              passcode: pass.value.trim(),
+              url: location.href.replace(/([?&])pin=[^&]*&?/, '$1').replace(/[?&]$/, ''),
+              path: location.pathname,
+              x: spot.xPct,
+              y: spot.y,
+              vw: innerWidth,
+              vh: innerHeight,
+              text: spot.text,
+              selector: spot.selector,
+              theme: document.documentElement.getAttribute('data-theme') || 'navy',
+            }),
+          });
+          const out = await res.json().catch(() => ({}));
+          if (res.ok) {
+            if (name.value.trim()) store.set(KEY.name, name.value.trim());
+            store.set(KEY.pass, pass.value.trim());
+            count += 1;
+            draftPin = null; // keep the numbered pin on the page
+            box?.remove();
+            box = null;
+            toast(`Comment ${count} sent${out.number ? ` (#${out.number})` : ''}. Thank you.`);
+            return;
+          }
+          if (out.error === 'passcode') {
+            store.del(KEY.pass);
+            (q('.rv-pass') as HTMLElement).hidden = false;
+            pass.value = '';
+            pass.focus();
+            msg.textContent = 'Wrong passcode. Please try again.';
+          } else if (out.error === 'not_configured') {
+            msg.textContent = 'Comment mode is not set up yet (settings missing on Cloudflare). Please send this comment by email or WhatsApp for now.';
+          } else {
+            msg.textContent = 'Could not send. Please try again in a minute.';
+          }
+        } catch {
+          msg.textContent = 'Could not send. Check your connection and try again.';
+        }
+        send.disabled = false;
+        send.textContent = 'Send';
+      });
+    };
+
+    button.addEventListener('click', () => (button.getAttribute('aria-pressed') === 'true' ? stopPicking() : startPicking()));
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (bar) stopPicking();
+      else if (box) closeBox();
+    });
+  }
+</script>

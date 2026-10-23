@@ -14,6 +14,7 @@ The main website `www.databytesolution.com`, moving from Google Sites to Astro o
 | Hosting | Cloudflare **Pages** project `databyte-solution-website` (same Cloudflare account as the landing page, ID `9df86834b0d7ed1c3f28c632787914be`) | `https://databyte-solution-website.pages.dev` |
 | Source + CI/CD | GitHub `infrazz/databyte-solution-website`. GitHub Actions builds and deploys: push to `main` = production, PR = preview `pr-<n>.databyte-solution-website.pages.dev` | `.github/workflows/deploy.yml` |
 | Quote form | `functions/api/quote.js` (Pages Function) → HubSpot Forms API → HubSpot emails hello@ | env `HUBSPOT_PORTAL_ID`, `HUBSPOT_FORM_GUID` |
+| Review comments | Preview only (`*.pages.dev`): Comment button → `functions/api/review-comment.js` → GitHub issue in a **private** repo. Never active on www | env `GITHUB_REVIEW_TOKEN`, `REVIEW_REPO`, `REVIEW_PASSCODE`; setup in `README.md` |
 | Redirects / noindex | `functions/_middleware.js`: bare domain → www (301); every `*.pages.dev` gets `X-Robots-Tag: noindex` | |
 | Analytics | GA4 `G-Q844JS8CQH` (same property as the Google Site). Google Ads conversions once IDs exist. Both only load on `www.databytesolution.com` | `src/config.ts` → `TRACKING` |
 | Domain + DNS | Registered at Namecheap. DNS moves from Namecheap to Cloudflare at cutover (plan runbook) | |
@@ -45,7 +46,7 @@ src/config.ts              # business details, tracking IDs, navigation, page li
 src/images.ts              # photo list with width/height
 src/styles/global.css      # design tokens (Dark Blue default + 3 preview themes) and all styles
 src/layouts/Base.astro     # <head>, SEO, JSON-LD, GA4, header/footer, click tracking
-src/components/            # Header, Footer, PageHero, QuoteForm, CtaBand, AsideNav, Photo, Icon, Logo
+src/components/            # Header, Footer, PageHero, QuoteForm, CtaBand, AsideNav, Photo, Icon, Logo, ReviewComments (preview-only comment button)
 src/pages/                 # one .astro file per URL; folder = URL path
 src/pages/sitemap.xml.ts   # sitemap from PAGES
 public/images/             # WebP photos carried over from the Google Site (max 960 px wide)
@@ -63,7 +64,8 @@ _migration/                # raw export from Google Sites (pages.json, image lis
 3. **No invented facts.** No statistics, client names, logos, certifications or claims that are not on the old site or approved by management. Public client names need management approval.
 4. Run `npm run build` before every commit; it must pass the site check.
 5. Photos: WebP, max 960 px wide, added to `src/images.ts` with real width/height and a descriptive `alt`.
-6. Never commit secrets. Secrets live in GitHub (`CLOUDFLARE_API_TOKEN`) and Cloudflare Pages env vars (`HUBSPOT_*`).
+6. Never commit secrets. Secrets live in GitHub (`CLOUDFLARE_API_TOKEN`) and Cloudflare Pages env vars (`HUBSPOT_*`, `GITHUB_REVIEW_TOKEN`, `REVIEW_PASSCODE`).
+10. Review comments must never go to this repo (it is public) and the Comment button must never run on www.databytesolution.com. To work through boss feedback: `gh issue list -R <REVIEW_REPO> -l review`, fix, close the issue with a note.
 7. Analytics stay on the production host only; never send form contents to GA4/Ads.
 8. Do not change DNS records except as written in the plan's cutover runbook, and never without the boss's go-ahead.
 9. Spelling follows the old site and its search keywords: "sanitization", "data centre".
